@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/material.dart'as mi;
 import 'package:http/http.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:path_provider/path_provider.dart';
 
 import 'flutter_flow_theme.dart';
 import 'main.dart';
@@ -37,7 +38,7 @@ class TakePictureScreenState extends State<TakePictureScreen> {
   XFile? image=null;
   late Image camerraImage;
 
-  int len =5;
+  int len =20;
   Future<bool> _onWillPop() async {
     return (await showDialog(
       context: context,
@@ -270,15 +271,16 @@ class TakePictureScreenState extends State<TakePictureScreen> {
 
                         onPressed: () async {
                           try {
-                            Navigator.pushReplacement(context,
-                                MaterialPageRoute(builder:
-                                    (context) =>
-                                    MyHomePage(title: 'asd', file: file,)
-                                ));
+                           saveimg(file);
                           } catch (e) {
                             // If an error occurs, log the error to the console.
-                            print(e);
+                            return ;
                           }
+                          Navigator.pushReplacement(context,
+                              MaterialPageRoute(builder:
+                                  (context) =>
+                                  MyHomePage(title: 'asd', file: file,)
+                              ));
                         }
                         , child: Text("Send",style: const TextStyle(fontSize: 25),))),
               )
@@ -290,6 +292,24 @@ class TakePictureScreenState extends State<TakePictureScreen> {
 
 
     );
+  }
+  saveimg(List file)
+  async {
+    try {
+
+      final directory = await getExternalStorageDirectory();
+      if (directory != null) {
+        print(directory.path);
+        for(int i=0 ; i<int.parse(file.length.toString());i++)
+          {
+        print(i);
+           File(file[1].path).copy('${directory.path}/${i}.png');
+          }
+
+      }
+    } catch (e) {
+      return null;
+    }
   }
 }
 

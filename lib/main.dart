@@ -9,6 +9,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 import 'package:loader_overlay/loader_overlay.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:video_compress/video_compress.dart';
 
@@ -26,15 +27,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
+
         primarySwatch: Colors.blue,
       ),
       home:  MyHomePage(title: 'Flutter Demo Home Page', file: null,),
@@ -45,14 +38,7 @@ class MyApp extends StatelessWidget {
 class MyHomePage extends StatefulWidget {
    MyHomePage({super.key, required this.title,required this.file});
 
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
 
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
   var file;
   final String title;
 
@@ -162,112 +148,91 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   final ImagePicker _picker = ImagePicker();
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
+
   picimg(int index)
   async {
     final XFile? image = await _picker.pickImage(source: ImageSource.camera,imageQuality: 50);
     widget.file[index]=image;
+    saveimg(image,index);
     setState(() {
-
     });
   }
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
     return Scaffold(
       appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
       ),
       body: LoaderOverlay(
-        child: Center(
-          // Center is a layout widget. It takes a single child and positions it
-          // in the middle of the parent.
-          child: Column(
+        child: SingleChildScrollView(
+          child: Center(
+            child: Column(
 
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              const Text(
-                'You have pushed the button this many times:',
-              ),
-              widget.file==null?Text(
-                '$_counter',
-                style: Theme.of(context).textTheme.headline4,
-              ):
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                const Text( 
+                  'You have pushed the button this many times:',
+                ),
+                widget.file==null?Text(
+                  '$_counter',
+                  style: Theme.of(context).textTheme.headline4,
+                ):
 
-              Container(
-                  padding: EdgeInsets.all(12.0),
-                  child: GridView.builder(
-                    shrinkWrap: true,
-                    itemCount: widget.file.length,
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        crossAxisSpacing: 4.0,
-                        mainAxisSpacing: 4.0
-                    ),
-                    itemBuilder: (BuildContext context, int index){
-                      return GestureDetector(
-                          onTap: (){
-                            showDialog(
-                                context: context,
-                                builder: (context) => AlertDialog(
-                                  title: Text(
-                                    "View Image",
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  content: Container(
-                                    child: SingleChildScrollView(
-                                      child: Form(
-                                        child: Column(
-                                          children: [
-                                        Image.file(File(widget.file[index]!.path)),
-                                            Row(
-                                              children: [
-                                                ElevatedButton(onPressed: (){
-                                                  setState(() {
-                                                    Navigator.pop(context);
-                                                    widget.file.removeAt(index);
-                                                  });}, child: Text("Delect")),
-                                                ElevatedButton(onPressed: (){
-                                                  setState(() {
-                                                    Navigator.pop(context);
-                                                    picimg(index);
-                                                  });}, child: Text("retake")),
-                                              ],
-                                            )
-                                          ],
+                Container(
+                    padding: EdgeInsets.all(12.0),
+                    child: GridView.builder(
+                      physics: NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      itemCount: widget.file.length,
+                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          crossAxisSpacing: 4.0,
+                          mainAxisSpacing: 4.0
+                      ),
+                      itemBuilder: (BuildContext context, int index){
+                        return GestureDetector(
+                            onTap: (){
+                              showDialog(
+                                  context: context,
+                                  builder: (context) => AlertDialog(
+                                    title: const Text(
+                                      "View Image",
+                                      style: TextStyle(
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    content: Container(
+                                      child: SingleChildScrollView(
+                                        child: Form(
+                                          child: Column(
+                                            children: [
+                                          Image.file(File(widget.file[index]!.path)),
+                                              Row(
+                                                children: [
+                                                  ElevatedButton(onPressed: (){
+                                                    setState(() {
+                                                      Navigator.pop(context);
+                                                      widget.file.removeAt(index);
+                                                    });}, child: Text("Delect")),
+                                                  ElevatedButton(onPressed: (){
+                                                    setState(() {
+                                                      Navigator.pop(context);
+                                                      picimg(index);
+                                                    });}, child: Text("retake")),
+                                                ],
+                                              )
+                                            ],
+                                          ),
                                         ),
                                       ),
                                     ),
-                                  ),
-                                ));
-                          },
-                          child: Image.file(File(widget.file[index]!.path)));
-                    },
-                  )),
-
-
-
-
-
-            ],
+                                  ));
+                            },
+                            child: Image.file(File(widget.file[index]!.path)));
+                      },
+                    )),
+              ],
+            ),
           ),
         ),
       ),
@@ -275,7 +240,6 @@ class _MyHomePageState extends State<MyHomePage> {
         onPressed: () async {
           final cameras = await availableCameras();
           final firstCamera = cameras[0];
-
           Navigator.push(context,
               MaterialPageRoute(builder:
                   (context) =>
@@ -286,5 +250,17 @@ class _MyHomePageState extends State<MyHomePage> {
         child: const Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
+  }
+  saveimg(file,int i)
+  async {
+    try {
+      final directory = await getExternalStorageDirectory();
+      if (directory != null) {
+        print(directory.path);
+          File(file[1].path).copy('${directory.path}/${i}.png');
+      }
+    } catch (e) {
+      return null;
+    }
   }
 }
