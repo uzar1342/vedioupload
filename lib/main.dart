@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:camera/camera.dart';
 import 'package:dio/dio.dart';
@@ -11,9 +12,14 @@ import 'package:image_picker/image_picker.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:video_compress/video_compress.dart';
 
 import 'camera.dart';
+
+
+
+
 void main() {
   runApp(const MyApp());
 }
@@ -49,7 +55,11 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
   int percentage=0;
-
+  Directory findRoot(FileSystemEntity entity) {
+    final Directory parent = entity.parent;
+    if (parent.path == entity.path) return parent;
+    return findRoot(parent);
+  }
   final picker = ImagePicker();
   picvidio()
   async {
@@ -65,6 +75,43 @@ class _MyHomePageState extends State<MyHomePage> {
         position: -1 // default(-1)
     );
     uploadFileToServer(thumbnailFile!);
+  }
+
+
+
+  save()
+  async {
+    var status = await Permission.storage.status;
+   var ac= await Permission.accessMediaLocation.request();
+   var ex= await Permission.manageExternalStorage.request();
+
+
+    if (!status.isGranted) {
+      await Permission.storage.request();
+      return null;
+    }
+    else if(!ac.isGranted)
+      {
+        await Permission.accessMediaLocation.request();
+        return null;
+      }
+    else if(!ex.isGranted)
+      {
+        await Permission.manageExternalStorage.request();
+        return null;
+      }
+    else
+      {
+        final directory = await getExternalStorageDirectory();
+        var directory1 = await Directory('${directory!.parent.parent.parent.parent.path}/dir/subdir').create(recursive: true);
+        for(int i=0 ; i<int.parse(widget.file.length.toString());i++)
+        {
+
+          File(widget.file[i].path).copy("${directory1!.path}/$i.jpg");
+        }
+
+      }
+
   }
   showAlertDialog(BuildContext context) {
     // set up the button
@@ -148,15 +195,23 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   final ImagePicker _picker = ImagePicker();
-
   picimg(int index)
   async {
     final XFile? image = await _picker.pickImage(source: ImageSource.camera,imageQuality: 50);
-    widget.file[index]=image;
-    saveimg(image,index);
+    if(image!=null) {
+      widget.file[index] = image;
+      saveimg(image, index);
+    }
     setState(() {
     });
   }
+
+  @override
+  void initState() {
+    widget.file !=null?save():(){};
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -181,7 +236,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 Container(
                     padding: EdgeInsets.all(12.0),
                     child: GridView.builder(
-                      physics: NeverScrollableScrollPhysics(),
+                      physics: const NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
                       itemCount: widget.file.length,
                       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -201,28 +256,26 @@ class _MyHomePageState extends State<MyHomePage> {
                                           color: Colors.black,
                                           fontWeight: FontWeight.bold),
                                     ),
-                                    content: Container(
-                                      child: SingleChildScrollView(
-                                        child: Form(
-                                          child: Column(
-                                            children: [
-                                          Image.file(File(widget.file[index]!.path)),
-                                              Row(
-                                                children: [
-                                                  ElevatedButton(onPressed: (){
-                                                    setState(() {
-                                                      Navigator.pop(context);
-                                                      widget.file.removeAt(index);
-                                                    });}, child: Text("Delect")),
-                                                  ElevatedButton(onPressed: (){
-                                                    setState(() {
-                                                      Navigator.pop(context);
-                                                      picimg(index);
-                                                    });}, child: Text("retake")),
-                                                ],
-                                              )
-                                            ],
-                                          ),
+                                    content: SingleChildScrollView(
+                                      child: Form(
+                                        child: Column(
+                                          children: [
+                                        Image.file(File(widget.file[index]!.path)),
+                                            Row(
+                                              children: [
+                                                ElevatedButton(onPressed: (){
+                                                  setState(() {
+                                                    Navigator.pop(context);
+                                                    widget.file.removeAt(index);
+                                                  });}, child: Text("Delect")),
+                                                ElevatedButton(onPressed: (){
+                                                  setState(() {
+                                                    Navigator.pop(context);
+                                                    picimg(index);
+                                                  });}, child: Text("retake")),
+                                              ],
+                                            )
+                                          ],
                                         ),
                                       ),
                                     ),
@@ -238,13 +291,37 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
-          final cameras = await availableCameras();
-          final firstCamera = cameras[0];
-          Navigator.push(context,
-              MaterialPageRoute(builder:
-                  (context) =>
+
+          var status = await Permission.storage.status;
+          var ac= await Permission.accessMediaLocation.request();
+          var ex= await Permission.manageExternalStorage.request();
+
+          if (!status.isGranted) {
+            await Permission.storage.request();
+            return null;
+          }
+          else if(!ac.isGranted)
+          {
+            await Permission.accessMediaLocation.request();
+            return null;
+          }
+          else if(!ex.isGranted)
+          {
+            await Permission.manageExternalStorage.request();
+            return null;
+          }
+          else
+            {
+              final cameras = await availableCameras();
+              final firstCamera = cameras[0];
+              Navigator.push(context,
+                  MaterialPageRoute(builder:
+                      (context) =>
                       TakePictureScreen(camera: firstCamera , title: ["1","2"],)
-              ));
+                  ));
+            }
+
+
         },
         tooltip: 'Increment',
         child: const Icon(Icons.add),
@@ -255,10 +332,9 @@ class _MyHomePageState extends State<MyHomePage> {
   async {
     try {
       final directory = await getExternalStorageDirectory();
-      if (directory != null) {
-        print(directory.path);
-          File(file[1].path).copy('${directory.path}/${i}.png');
-      }
+      var directory1 = await Directory('${directory!.parent.parent.parent.parent.path}/dir/subdir').create(recursive: true);
+      print(directory.path);
+      File(file.path).copy("${directory1!.path}/$i.jpg");
     } catch (e) {
       return null;
     }

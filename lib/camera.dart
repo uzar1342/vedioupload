@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:ui';
+import 'package:flutter/foundation.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'dart:io';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -38,7 +40,7 @@ class TakePictureScreenState extends State<TakePictureScreen> {
   XFile? image=null;
   late Image camerraImage;
 
-  int len =20;
+  int len =3;
   Future<bool> _onWillPop() async {
     return (await showDialog(
       context: context,
@@ -270,12 +272,7 @@ class TakePictureScreenState extends State<TakePictureScreen> {
                         ),
 
                         onPressed: () async {
-                          try {
-                           saveimg(file);
-                          } catch (e) {
-                            // If an error occurs, log the error to the console.
-                            return ;
-                          }
+
                           Navigator.pushReplacement(context,
                               MaterialPageRoute(builder:
                                   (context) =>
@@ -293,24 +290,7 @@ class TakePictureScreenState extends State<TakePictureScreen> {
 
     );
   }
-  saveimg(List file)
-  async {
-    try {
 
-      final directory = await getExternalStorageDirectory();
-      if (directory != null) {
-        print(directory.path);
-        for(int i=0 ; i<int.parse(file.length.toString());i++)
-          {
-        print(i);
-           File(file[1].path).copy('${directory.path}/${i}.png');
-          }
-
-      }
-    } catch (e) {
-      return null;
-    }
-  }
 }
 
 class picview extends StatelessWidget {
