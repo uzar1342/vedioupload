@@ -19,27 +19,26 @@ import 'main.dart';
 
 class TakePictureScreen extends StatefulWidget {
   TakePictureScreen({
-    required this.camera,required this.title
+    required this.title,required this.name
   });
   int len=0;
-  final CameraDescription camera;
   var title;
-
+  String name;
   bool camraloader=true;
   @override
   TakePictureScreenState createState() => TakePictureScreenState();
 }
 
 class TakePictureScreenState extends State<TakePictureScreen> {
-  late CameraController _controller;
   late Future<void> _initializeControllerFuture;
-  bool net = true;
+  bool net = false;
   var file=[];
   bool loader =true;
   late String Address;
   XFile? image=null;
   late Image camerraImage;
-
+  late CameraController _controller;
+  late List<CameraDescription> _availableCameras;
   int len =3;
   Future<bool> _onWillPop() async {
     return (await showDialog(
@@ -61,18 +60,34 @@ class TakePictureScreenState extends State<TakePictureScreen> {
     )) ?? false;
   }
 
-
-
   @override
+
   void initState() {
-    print(widget.title);
     super.initState();
-    _controller = CameraController(
-      widget.camera,
-      ResolutionPreset.medium,
-    );
-    _initializeControllerFuture = _controller.initialize();
+    _initializeControllerFuture= _getAvailableCameras();
   }
+
+  // get available cameras
+  Future<void> _getAvailableCameras() async{
+    WidgetsFlutterBinding.ensureInitialized();
+    _availableCameras = await availableCameras();
+    _initCamera(_availableCameras.first);
+  }
+
+  // init camera
+  Future<void> _initCamera(CameraDescription description) async{
+    _controller = CameraController(description, ResolutionPreset.medium, enableAudio: true);
+
+    try{
+      await _controller.initialize();
+      // to notify the widgets that camera has been initialized and now camera preview can be done
+      setState((){});
+    }
+    catch(e){
+      print(e);
+    }
+  }
+
 
 
   @override
@@ -81,7 +96,26 @@ class TakePictureScreenState extends State<TakePictureScreen> {
     super.dispose();
   }
 
+  void _toggleCameraLens() {
+    // get current lens direction (front / rear)
+    final lensDirection = _controller.description.lensDirection;
+    CameraDescription newDescription;
+    if (lensDirection == CameraLensDirection.front) {
+      newDescription = _availableCameras.firstWhere((description) => description
+          .lensDirection == CameraLensDirection.back);
+    }
+    else {
+      newDescription = _availableCameras.firstWhere((description) => description
+          .lensDirection == CameraLensDirection.front);
+    }
 
+    if (newDescription != null) {
+      _initCamera(newDescription);
+    }
+    else {
+      print('Asked camera not available');
+    }
+  }
   @override
   Widget build(BuildContext context) {
     double h = MediaQuery.of(context).size.height;
@@ -122,8 +156,8 @@ class TakePictureScreenState extends State<TakePictureScreen> {
                           ),
                         ),
                         Text(
-                          widget.len<2?widget.title[widget.len]:"Send",
-                          style: TextStyle(
+                          widget.len<len?widget.title[widget.len]:"Send",
+                          style: const TextStyle(
                               fontSize: 25.0,
                               fontWeight: FontWeight.bold,
                               color: Colors.black),
@@ -152,7 +186,7 @@ class TakePictureScreenState extends State<TakePictureScreen> {
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.done) {
                       // If the Future is complete, display the preview.
-                      return CameraPreview(_controller);
+                      return  CameraPreview(_controller);
                     } else {
                       // Otherwise, display a loading indicator.
                       return const Center(child: CircularProgressIndicator());
@@ -229,11 +263,16 @@ class TakePictureScreenState extends State<TakePictureScreen> {
                  GestureDetector(
                    onTap: (){
                      if(widget.len<len) {
+
                        setState(() {
                        widget.camraloader=true;
                        widget.len=widget.len+1;
                        loader=true;
                      });
+                       if(widget.len==2||widget.len==3||widget.len==5||widget.len==6)
+                       {
+                         _toggleCameraLens();
+                       }
                        file.add(image);
                      }
                     else
@@ -276,10 +315,10 @@ class TakePictureScreenState extends State<TakePictureScreen> {
                           Navigator.pushReplacement(context,
                               MaterialPageRoute(builder:
                                   (context) =>
-                                  MyHomePage(title: 'asd', file: file,)
+                                  MyHomePage(title: widget.name, file: file,)
                               ));
                         }
-                        , child: Text("Send",style: const TextStyle(fontSize: 25),))),
+                        , child: const Text("Send",style: TextStyle(fontSize: 25),))),
               )
 
 
