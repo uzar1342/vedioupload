@@ -1,21 +1,18 @@
 import 'dart:io';
 import 'dart:typed_data';
+import 'package:http/http.dart' as http;
 import 'package:path/path.dart' as path;
 import 'package:camera/camera.dart';
 import 'package:device_info/device_info.dart';
 import 'package:dio/dio.dart';
-import 'package:video_compress/video_compress.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:video_compress/video_compress.dart';
-
+import 'package:light_compressor/light_compressor.dart';
 import 'camera.dart';
 
 
@@ -44,13 +41,8 @@ class MyApp extends StatelessWidget {
 
 class MyHomePage extends StatefulWidget {
    MyHomePage({super.key, required this.title,required this.file});
-
-
   var file;
-
-
   final String title;
-
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
@@ -83,29 +75,91 @@ class _MyHomePageState extends State<MyHomePage> {
 //   }
 
 
-  Future<void> picvidio() async {
+  Future<String> get _destinationFile async {
+    String directoryp;
+    final String videoName = '${DateTime.now().millisecondsSinceEpoch}.mp4';
+    final directory = await getExternalStorageDirectory();
+    var directory1 = await Directory('${directory!.parent.parent.parent.parent.path}/dir/${widget.title}').create(recursive: true);
+
+    if (Platform.isAndroid) {
+
+      directoryp = directory1.path;
+      return File('$directoryp/$videoName').path;
+    } else {
+      return File('$directory/$videoName').path;
+    }
+  }
+
+  late String _desFile;
+  String? _displayedFile;
+  late int _duration;
+  String? _failureMessage;
+  String? _filePath;
+  bool _isVideoCompressed = false;
+  final LightCompressor _lightCompressor = LightCompressor();
+  Future<void> _pickVideo() async {
+
+    setState(() {
+      context.loaderOverlay.show();
+    });
     var file;
 
-      final picker = ImagePicker();
-      var pickedFile = await  picker.pickVideo(source: ImageSource.camera);
-      file = File(pickedFile!.path);
+    final picker = ImagePicker();
+    var pickedFile = await  picker.pickVideo(source: ImageSource.camera);
+    file = File(pickedFile!.path);
 
     if (file == null) {
       return;
     }
-    print(file.path);
-    await VideoCompress.setLogLevel(0);
-    final info = await VideoCompress.compressVideo(
-      file.path,
-      quality: VideoQuality.MediumQuality,
-      deleteOrigin: false,
-      includeAudio: true,
-    );
-    print(info?.path);
+
+    _isVideoCompressed = false;
+
+
+
+    _filePath = file.path;
+
     setState(() {
-      file = info?.path!;
+      _failureMessage = null;
     });
+
+    _desFile = await _destinationFile;
+    final Stopwatch stopwatch = Stopwatch()..start();
+    final dynamic response = await _lightCompressor.compressVideo(
+        path: _filePath!,
+        destinationPath: _desFile,
+        videoQuality: VideoQuality.low,
+        isMinBitrateCheckEnabled: false,
+        iosSaveInGallery: false);
+    stopwatch.stop();
+    final Duration duration =
+    Duration(milliseconds: stopwatch.elapsedMilliseconds);
+    _duration = duration.inSeconds;
+
+    if (response is OnSuccess) {
+
+      _desFile = response.destinationPath;
+      print(_duration);
+      setState(() {
+        context.loaderOverlay.hide();
+        _displayedFile = _desFile;
+        _isVideoCompressed = true;
+      });
+    } else if (response is OnFailure) {
+
+      setState(() {
+        context.loaderOverlay.hide();
+        _failureMessage = response.message;
+      });
+    } else if (response is OnCancelled) {
+      setState(() {
+        context.loaderOverlay.hide();
+      });
+      print(response.isCancelled);
+    }
   }
+
+
+
 
 
 
@@ -227,48 +281,78 @@ getinfo()
 
   void uploadFileToServerimg() async {
 
-    var dio = Dio();
-    var formData = FormData();
-    // for(int i=0 ; i<int.parse(widget.file.length.toString());i++) {
-    //   formData.files.add(
-    //   MapEntry("images", await MultipartFile.fromFile(widget.file[i].path)),
-    // );
-    // }
 
-    formData.files.add(
-        MapEntry("images", await MultipartFile.fromFile(vidio))
+    setState(() {
+      context.loaderOverlay.show();
+    });
+
+
+    var request = http.MultipartRequest('POST', Uri.parse("http://training.virash.in/uploadTesting"));
+    request.files.add(
+        http.MultipartFile(
+            'picture',
+            File(_desFile).readAsBytes().asStream(),
+            File(_desFile).lengthSync(),
+            filename: "uploadvid.mp4"
+        )
     );
-    try {
-      var response = await dio.post(
-          'http://training.virash.in/uploadTesting', data: formData,
-          onSendProgress: (int sent, int total) {
-            percentage    = ((sent / total) * 100).floor();
-            setState(() {
-              percentage=percentage;
-            });
-
-          });
-      if(response.statusCode==200)
-        {
-          setState(() {
-            context.loaderOverlay.hide();
-          });
-          Fluttertoast.showToast(msg: response.data.toString());
-        }
-      else
-        {
-          setState(() {
-            context.loaderOverlay.hide();
-          });
-          Fluttertoast.showToast(msg: response.data.toString());
-        }
-    }
-    catch (error) {
+    var res = await request.send();
+    if(res.statusCode==200)
+    {
       setState(() {
         context.loaderOverlay.hide();
       });
-      Fluttertoast.showToast(msg:error.toString());
-  }
+      Fluttertoast.showToast(msg: res.statusCode.toString());
+    }
+    else
+    {
+      setState(() {
+        context.loaderOverlay.hide();
+      });
+      print(request.toString());
+      Fluttertoast.showToast(msg: res.statusCode.toString());
+    }
+  //   var dio = Dio();
+  //   var formData = FormData();
+  //   for(int i=0 ; i<int.parse(widget.file.length.toString());i++) {
+  //     formData.files.add(
+  //     MapEntry("images", await MultipartFile.fromFile(widget.file[i].path)),
+  //   );
+  //   }
+  //   formData.files.add(
+  //       MapEntry("images", await MultipartFile.fromFile(_desFile))
+  //   );
+  //   try {
+  //     var response = await dio.post(
+  //         'http://training.virash.in/uploadTesting', data: formData,
+  //         onSendProgress: (int sent, int total) {
+  //           percentage    = ((sent / total) * 100).floor();
+  //           setState(() {
+  //             percentage=percentage;
+  //           });
+  //
+  //         });
+  //     if(response.statusCode==200)
+  //       {
+  //         setState(() {
+  //           context.loaderOverlay.hide();
+  //         });
+  //         Fluttertoast.showToast(msg: response.data.toString());
+  //       }
+  //     else
+  //       {
+  //         setState(() {
+  //           context.loaderOverlay.hide();
+  //         });
+  //         Fluttertoast.showToast(msg: response.data.toString());
+  //       }
+  //   }
+  //   catch (error) {
+  //     setState(() {
+  //       context.loaderOverlay.hide();
+  //     });
+  //     Fluttertoast.showToast(msg:error.toString());
+  // }
 
 
 
@@ -377,7 +461,7 @@ getinfo()
                   Fluttertoast.showToast(msg: "Delete");
                 }, child: const Text("Delete folder")),
                 ElevatedButton(onPressed: () async {
-                  picvidio();
+                  _pickVideo();
                   Fluttertoast.showToast(msg: "vidio");
                 }, child: const Text("vidio")),
                 ElevatedButton(onPressed: () async {
