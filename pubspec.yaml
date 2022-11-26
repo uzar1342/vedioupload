@@ -38,7 +38,18 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   http: ^0.13.5
+  auto_size_text: 3.0.0
+  flutter_animate: ^2.0.1
+  intl: ^0.17.0
+  json_path: ^0.4.2
+  timeago: ^3.3.0
+  url_launcher: ^6.1.7
+  page_transition: ^2.0.9
   dio: ^4.0.6
+  google_nav_bar: ^5.0.6
+  get: ^4.6.5
+  smooth_page_indicator: 1.0.0+2
+  dropdown_search: ^5.0.3
   device_info: ^2.0.3
   permission_handler: ^10.2.0
   font_awesome_flutter: ^9.0.0
@@ -52,6 +63,7 @@ dependencies:
   image_picker: ^0.8.4+1
   multi_image_picker: ^4.7.14
   fluttertoast: ^8.0.8
+  flutter_ffmpeg: ^0.4.2
   loader_overlay: ^2.1.0
 dev_dependencies:
   flutter_test:
@@ -76,8 +88,8 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
+  assets:
+    -  asset/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

@@ -1,8 +1,13 @@
 import 'dart:io';
 import 'dart:typed_data';
+import 'package:flutter_ffmpeg/flutter_ffmpeg.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_navigation/get_navigation.dart';
+import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:http/http.dart' as http;
 import 'package:path/path.dart' as path;
 import 'package:camera/camera.dart';
+import '../flutter_flow/flutter_flow_util.dart';
 import 'package:device_info/device_info.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -13,32 +18,279 @@ import 'package:path_provider/path_provider.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:light_compressor/light_compressor.dart';
+import 'package:vedioupload/signup.dart';
+import 'package:vedioupload/splacescreen.dart';
 import 'camera.dart';
+import 'firstpage.dart';
+import 'flutter_flow/flutter_flow_widgets.dart';
+import 'flutter_flow_theme.dart';
+import 'menus.dart';
 
 
 
-
+List<Widget> _widgetOptions=[] ;
 void main() {
-  runApp(const MyApp());
+  runApp(const vidioupload());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class dasbod extends StatefulWidget {
+  const dasbod({Key? key}) : super(key: key);
+
+  @override
+  State<dasbod> createState() => _dasbodState();
+}
+int _selectedIndex = 0;
+class _dasbodState extends State<dasbod> {
+  @override
+  void initState() {
+    _widgetOptions = <Widget>[
+      ListView.builder(
+          itemCount: 3,
+          itemBuilder: (context, position)
+          {
+            return GestureDetector(
+              onTap: (){
+                _desFile="";
+                Get.to(()=>(MyHomePage(title: 'asd', file: null,)));
+              },
+              child: Row(
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsetsDirectional.fromSTEB(10, 10, 10, 0),
+                      child: Card(
+                        clipBehavior: Clip.antiAliasWithSaveLayer,
+                        color: Color(0xFFF5F5F5),
+                        elevation: 5,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(0),
+                            bottomRight: Radius.circular(0),
+                            topLeft: Radius.circular(0),
+                            topRight: Radius.circular(10),
+                          ),
+                        ),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Row(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Expanded(
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: [
+                                      Container(
+                                        width: double.infinity,
+                                        height: 150,
+                                        decoration: BoxDecoration(
+                                          color: FlutterFlowTheme.of(context)
+                                              .secondaryBackground,
+                                        ),
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          children: [
+                                            Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                              children: [
+                                                Padding(
+                                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                                      10, 10, 10, 10),
+                                                  child: Text(
+                                                    'MH01AE8017',
+                                                    style: FlutterFlowTheme.of(context)
+                                                        .subtitle1,
+                                                  ),
+                                                ),
+                                                Padding(
+                                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                                      0, 10, 10, 0),
+                                                  child: Container(
+                                                    width: 90,
+                                                    height: 40,
+                                                    decoration: BoxDecoration(
+                                                      color: Color(0xFF711414),
+                                                      borderRadius: BorderRadius.only(
+                                                        bottomLeft: Radius.circular(10),
+                                                        bottomRight: Radius.circular(0),
+                                                        topLeft: Radius.circular(0),
+                                                        topRight: Radius.circular(10),
+                                                      ),
+                                                    ),
+                                                    child: Padding(
+                                                      padding:
+                                                      EdgeInsetsDirectional.fromSTEB(
+                                                          0, 10, 0, 0),
+                                                      child: Text(
+                                                        'MSCVSA',
+                                                        textAlign: TextAlign.center,
+                                                        style: FlutterFlowTheme.of(context)
+                                                            .bodyText1
+                                                            .override(
+                                                          fontFamily: 'Poppins',
+                                                          color: Color(0xFFEAEDEF),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                              children: const [
+                                                Padding(
+                                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                                      10, 10, 10, 10),
+                                                  child: Text(
+                                                    'ARBAZ KHAN NISAR',
+                                                    style: TextStyle(
+                                                      color: Color(0xE47B7272),
+                                                      fontWeight: FontWeight.w600,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            Container(
+                                              width: MediaQuery.of(context).size.width,
+                                              height:
+                                              MediaQuery.of(context).size.height * 0.07,
+                                              constraints: BoxConstraints(
+                                                maxWidth: double.infinity,
+                                                maxHeight: double.infinity,
+                                              ),
+                                              decoration: BoxDecoration(
+                                                color: FlutterFlowTheme.of(context)
+                                                    .secondaryBackground,
+                                              ),
+                                              child: const Padding(
+                                                padding: EdgeInsetsDirectional.fromSTEB(
+                                                    10, 1, 1, 1),
+                                                child: Text(
+                                                  "KOHINOOR YARD | MIRA ROAD",
+                                                  maxLines: 5,
+                                                  style: TextStyle(
+                                                    fontWeight: FontWeight.w600,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Container(
+                                        width: double.infinity,
+                                        height: 5,
+                                        decoration: BoxDecoration(
+                                          color: Color(0xFF831111),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            );
+
+          }
+      ),
+      ProfWidget()
+    ];
+    super.initState();
+  }
+  @override
+  Widget build(BuildContext context) {
+    return
+      Scaffold(
+        appBar: AppBar(title: Text("Dashbord"),),
+        body:
+        _widgetOptions.elementAt(_selectedIndex),
+        bottomNavigationBar:  Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            boxShadow: [
+              BoxShadow(
+                blurRadius: 20,
+                color: Colors.black.withOpacity(.1),
+              )
+            ],
+          ),
+          child: SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 8),
+              child: GNav(
+                rippleColor: Colors.grey[300]!,
+                hoverColor: Colors.grey[100]!,
+                gap: 8,
+                activeColor: Colors.black,
+                iconSize: 24,
+                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                duration: Duration(milliseconds: 400),
+                tabBackgroundColor: Colors.grey[100]!,
+                color: Colors.black,
+                tabs: [
+                  GButton(
+                    icon: Icons.image,
+                    text: 'Home',
+                  ),
+                  GButton(
+                    icon: Icons.settings,
+                    text: 'Likes',
+                  ),
+
+                ],
+                selectedIndex: _selectedIndex,
+                onTabChange: (index) {
+                  setState(() {
+                    _selectedIndex = index;
+                  });
+                },
+              ),
+            ),
+          ),
+        ),
+      );
+
+
+
+
+  }
+}
+
+
+
+class vidioupload extends StatelessWidget {
+  const vidioupload({super.key});
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
 
         primarySwatch: Colors.blue,
       ),
-      home:  MyHomePage(title: 'Flutter Demo Home Page', file: null,),
+      home:  const splacescreen()
     );
   }
 }
-
+late String _desFile="";
 class MyHomePage extends StatefulWidget {
    MyHomePage({super.key, required this.title,required this.file});
   var file;
@@ -57,22 +309,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return findRoot(parent);
   }
   final picker = ImagePicker();
-//   picvidio()
-//   async {
-//     final XFile? image = await picker.pickVideo(source: ImageSource.camera);
-//     MediaInfo? mediaInfo = await VideoCompress.compressVideo(
-//       image!.path,
-//       quality: VideoQuality.LowQuality,
-//       deleteOrigin: false, // It's false by default
-//     );
-//
-//     print(mediaInfo?.path);
-// setState(() {
-//   vidio=mediaInfo?.file;
-// });
-//
-//
-//   }
+
 
 
   Future<String> get _destinationFile async {
@@ -90,7 +327,6 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
-  late String _desFile;
   String? _displayedFile;
   late int _duration;
   String? _failureMessage;
@@ -127,7 +363,7 @@ class _MyHomePageState extends State<MyHomePage> {
     final dynamic response = await _lightCompressor.compressVideo(
         path: _filePath!,
         destinationPath: _desFile,
-        videoQuality: VideoQuality.low,
+        videoQuality: VideoQuality.very_low,
         isMinBitrateCheckEnabled: false,
         iosSaveInGallery: false);
     stopwatch.stop();
@@ -136,7 +372,6 @@ class _MyHomePageState extends State<MyHomePage> {
     _duration = duration.inSeconds;
 
     if (response is OnSuccess) {
-
       _desFile = response.destinationPath;
       print(_duration);
       setState(() {
@@ -159,7 +394,17 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
 
+  static Future<String> ReduceSizeAndType(videoPath, outDirPath) async {
+    final FlutterFFmpeg _flutterFFmpeg = FlutterFFmpeg();
+    assert(File(videoPath).existsSync());
 
+    final arguments = '-y -i $videoPath -preset ultrafast -g 48 -sc_threshold 0 -c:v libx264 -b:v 720k -c:a copy "$outDirPath/file2.mp4"';
+
+    final int rc = await _flutterFFmpeg.execute(arguments);
+    assert(rc == 0);
+
+    return outDirPath;
+  }
 
 
 
@@ -198,6 +443,8 @@ getinfo()
   String getFileName(String _path){
     return path.basename(_path);
   }
+
+
   showAlertDialog(BuildContext context) {
     // set up the button
     Widget okButton = TextButton(
@@ -236,6 +483,8 @@ getinfo()
       },
     );
   }
+
+
   void uploadFileToServer(File imagePath) async {
 
     var dio = Dio();
@@ -279,18 +528,26 @@ getinfo()
 
   }
 
+
   void uploadFileToServerimg() async {
-
-
     setState(() {
       context.loaderOverlay.show();
     });
-
-
+    final Stopwatch stopwatch = Stopwatch()..start();
     var request = http.MultipartRequest('POST', Uri.parse("http://training.virash.in/uploadTesting"));
+    for(int i=0 ; i<int.parse(widget.file.length.toString());i++) {
+          request.files.add(
+              http.MultipartFile(
+                  'images',
+                  File(widget.file[i].path).readAsBytes().asStream(),
+                  File(widget.file[i].path).lengthSync(),
+                  filename: "$i.jpg"
+              )
+         );
+         }
     request.files.add(
         http.MultipartFile(
-            'picture',
+            'video',
             File(_desFile).readAsBytes().asStream(),
             File(_desFile).lengthSync(),
             filename: "uploadvid.mp4"
@@ -299,6 +556,7 @@ getinfo()
     var res = await request.send();
     if(res.statusCode==200)
     {
+      print(request.fields);
       setState(() {
         context.loaderOverlay.hide();
       });
@@ -356,8 +614,13 @@ getinfo()
 
 
 
-
+    stopwatch.stop();
+    final Duration duration =
+    Duration(milliseconds: stopwatch.elapsedMilliseconds);
+    _duration = duration.inSeconds;
+    print("upload time"+duration.toString());
   }
+
 
 
   final ImagePicker _picker = ImagePicker();
@@ -377,6 +640,7 @@ getinfo()
     getinfo();
     super.initState();
   }
+var selectedValue;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -384,161 +648,364 @@ getinfo()
         title: Text(widget.title),
       ),
       body: LoaderOverlay(
-        child: SingleChildScrollView(
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                const Text( 
-                  'You have pushed the button this many times:',
+        child: Column(
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            Row(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Expanded(
+                  child: Container(
+                    width: 100,
+                    height: 150,
+                    decoration: BoxDecoration(
+                      color: Colors.blue,
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                          width: 100,
+                          height: 100,
+                          decoration: BoxDecoration(
+                            color: Colors.lightBlueAccent,
+                            shape: BoxShape.circle,
+                          ),
+                          child: Icon(
+                            Icons.camera_alt,
+                            color: Colors.black,
+                            size: 50,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
-                widget.file==null?Text(
-                  '$_counter',
-                  style: Theme.of(context).textTheme.headline4,
-                ):
-                Container(
-                    padding: EdgeInsets.all(12.0),
-                    child: GridView.builder(
-                      physics: const NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      itemCount: widget.file.length,
-                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          crossAxisSpacing: 4.0,
-                          mainAxisSpacing: 4.0
-                      ),
-                      itemBuilder: (BuildContext context, int index){
-                        return GestureDetector(
-                            onTap: (){
-                              showDialog(
-                                  context: context,
-                                  builder: (context) => AlertDialog(
-                                    title: const Text(
-                                      "View Image",
-                                      style: TextStyle(
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    content: SingleChildScrollView(
-                                      child: Form(
-                                        child: Column(
-                                          children: [
-                                        Image.file(File(widget.file[index]!.path)),
-                                            Row(
-                                              children: [
-                                                ElevatedButton(onPressed: (){
-
-                                                  setState(() {
-                                                    Navigator.pop(context);
-                                                    widget.file.removeAt(index);
-                                                  });}, child: Text("Delect")),
-                                                ElevatedButton(onPressed: (){
-                                                  setState(() {
-                                                    Navigator.pop(context);
-                                                    picimg(index);
-                                                  });}, child: Text("retake")),
-                                              ],
-                                            )
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ));
-                            },
-                            child: Image.file(File(widget.file[index]!.path)));
-                      },
-                    )),
-                ElevatedButton(onPressed: () async {
-                  final directory = await getExternalStorageDirectory();
-                  var directory1 = await Directory('${directory!.parent.parent.parent.parent.path}/dir/subdir').create(recursive: true);
-                  final dir = Directory(directory1.path);
-                  dir.deleteSync(recursive: true);
-
-                  setState(() {
-                    widget.file.clear();
-                    widget.file==null;
-                  });
-                  Fluttertoast.showToast(msg: "Delete");
-                }, child: const Text("Delete folder")),
-                ElevatedButton(onPressed: () async {
-                  _pickVideo();
-                  Fluttertoast.showToast(msg: "vidio");
-                }, child: const Text("vidio")),
-                ElevatedButton(onPressed: () async {
-                  setState(() {
-                    context.loaderOverlay.show();
-                  });
-                  uploadFileToServerimg();
-                }, child: const Text("send img"))
               ],
             ),
-          ),
-        ),
-      ),
-      floatingActionButton: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: FloatingActionButton(
-              onPressed: () async {
-                var status = await Permission.storage.status;
-                var list = List<String>.generate(20, (i) => (i + 1).toString());
-                if (!status.isGranted) {
-                  await Permission.storage.request();
-                  await Permission.accessMediaLocation.request();
-                  if(sdk >= 30) {
-                    await Permission.manageExternalStorage.request();
-                  }
-                  return;
-                }
-
-                else
-                  {
-
-                    Navigator.push(context,
-                        MaterialPageRoute(builder:
-                            (context) =>
-                            TakePictureScreen( title: list, name: 'arbaz',)
-                        ));
-                  }
-
-
-              },
-              tooltip: 'Increment',
-              child: const Icon(Icons.image),
+            Row(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                _desFile.trim()==""?Expanded(
+                  child: GestureDetector(
+                    onTap: (){
+                      _pickVideo();
+                    },
+                    child: Padding(
+                      padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
+                      child: Container(
+                        width: 50,
+                        height: 50,
+                        decoration: BoxDecoration(
+                          color: FlutterFlowTheme.of(context).secondaryBackground,
+                          borderRadius: BorderRadius.circular(10),
+                          border: Border.all(
+                            color: FlutterFlowTheme.of(context).secondaryColor,
+                            width: 1,
+                          ),
+                        ),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Align(
+                              alignment: AlignmentDirectional(-0.6, 0),
+                              child: Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
+                                child: Text(
+                                  'Select Vidio',
+                                  textAlign: TextAlign.start,
+                                  style: FlutterFlowTheme.of(context).bodyText1,
+                                ),
+                              ),
+                            ),
+                            Icon(
+                              Icons.navigate_next,
+                              color: Colors.black,
+                              size: 24,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ):
+                Expanded(
+                  child: GestureDetector(
+                    onTap: (){
+                    },
+                    child: Padding(
+                      padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
+                      child: Container(
+                        width: 50,
+                        height: 50,
+                        decoration: BoxDecoration(
+                          color: FlutterFlowTheme.of(context).secondaryBackground,
+                          borderRadius: BorderRadius.circular(10),
+                          border: Border.all(
+                            color: FlutterFlowTheme.of(context).secondaryColor,
+                            width: 1,
+                          ),
+                        ),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Align(
+                              alignment: AlignmentDirectional(-0.6, 0),
+                              child: Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
+                                child: Text(
+                                  'Select Vidio',
+                                  textAlign: TextAlign.start,
+                                  style: FlutterFlowTheme.of(context).bodyText1,
+                                ),
+                              ),
+                            ),
+                            Icon(
+                              Icons.check,
+                              color: Colors.black,
+                              size: 24,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
-          ),
-          FloatingActionButton(
-            onPressed: () async {
-              var status = await Permission.storage.status;
-              var list = List<String>.generate(20, (i) => (i + 1).toString());
-              if (!status.isGranted) {
-                await Permission.storage.request();
-                await Permission.accessMediaLocation.request();
-                if(sdk >= 30) {
-                  await Permission.manageExternalStorage.request();
-                }
-                return;
-              }
-
-              else
-                {
-
-                  Navigator.push(context,
-                      MaterialPageRoute(builder:
-                          (context) =>
-                          TakePictureScreen( title: list, name: 'vipeen',)
-                      ));
-                }
+            widget.file!=null? Row(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Expanded(
+                  child: GestureDetector(
+                    onTap: () async {
 
 
-            },
-            tooltip: 'Increment',
-            child: const Icon(Icons.add),
-          ),
-        ],
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+
+                  },
+                    child: Padding(
+                      padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
+                      child: Container(
+                        width: 50,
+                        height: 50,
+                        decoration: BoxDecoration(
+                          color: FlutterFlowTheme.of(context).secondaryBackground,
+                          borderRadius: BorderRadius.circular(10),
+                          border: Border.all(
+                            color: FlutterFlowTheme.of(context).secondaryColor,
+                            width: 1,
+                          ),
+                        ),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Align(
+                              alignment: AlignmentDirectional(-0.6, 0),
+                              child: Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
+                                child: Text(
+                                  'SelectImage',
+                                  textAlign: TextAlign.start,
+                                  style: FlutterFlowTheme.of(context).bodyText1,
+                                ),
+                              ),
+                            ),
+                            Icon(
+                              Icons.check,
+                              color: Colors.black,
+                              size: 24,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ): Row(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Expanded(
+                  child: GestureDetector(
+                    onTap: () async {
+                      var status = await Permission.storage.status;
+                      var list = List<String>.generate(20, (i) => (i + 1).toString());
+                      if (!status.isGranted) {
+                        await Permission.storage.request();
+                        await Permission.accessMediaLocation.request();
+                        if(sdk >= 30) {
+                          await Permission.manageExternalStorage.request();
+                        }
+                        return;
+                      }
+
+                      else
+                      {
+
+                        Navigator.push(context,
+                            MaterialPageRoute(builder:
+                                (context) =>
+                                TakePictureScreen( title: list, name: 'arbaz',)
+                            ));
+                      }
+
+
+                    },
+                    child: Padding(
+                      padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
+                      child: Container(
+                        width: 50,
+                        height: 50,
+                        decoration: BoxDecoration(
+                          color: FlutterFlowTheme.of(context).secondaryBackground,
+                          borderRadius: BorderRadius.circular(10),
+                          border: Border.all(
+                            color: FlutterFlowTheme.of(context).secondaryColor,
+                            width: 1,
+                          ),
+                        ),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Align(
+                              alignment: AlignmentDirectional(-0.6, 0),
+                              child: Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
+                                child: Text(
+                                  'SelectImage',
+                                  textAlign: TextAlign.start,
+                                  style: FlutterFlowTheme.of(context).bodyText1,
+                                ),
+                              ),
+                            ),
+                            Icon(
+                              Icons.navigate_next,
+                              color: Colors.black,
+                              size: 24,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+           widget.file!=null? Expanded(
+              child: Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
+                child: GridView.builder(
+                  itemCount:  widget.file.length,
+                  padding: EdgeInsets.zero,
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    crossAxisSpacing: 2,
+                    mainAxisSpacing: 2,
+                    childAspectRatio: 1,
+                  ),
+                  scrollDirection: Axis.vertical,
+                  itemBuilder: (BuildContext context, int index) {
+                    return GestureDetector(
+                      onTap: (){
+                        showDialog(
+                            context: context,
+                            builder: (context) => AlertDialog(
+                              title: const Text(
+                                "View Image",
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              content: SingleChildScrollView(
+                                child: Form(
+                                  child: Column(
+                                    children: [
+                                      Image.file(File(widget.file[index]!.path)),
+                                      Row(
+                                        children: [
+                                          ElevatedButton(onPressed: (){
+
+                                            setState(() {
+                                              Navigator.pop(context);
+                                              widget.file.removeAt(index);
+                                            });}, child: Text("Delect")),
+                                          ElevatedButton(onPressed: (){
+                                            setState(() {
+                                              Navigator.pop(context);
+                                              picimg(index);
+                                            });}, child: Text("retake")),
+                                        ],
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ));
+                      },
+                      child: Card(
+                        clipBehavior: Clip.antiAliasWithSaveLayer,
+                        color: Color(0xFFF5F5F5),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Expanded(
+                              child: Image.file(
+                                File(widget.file[index]!.path),
+                                width: double.infinity,
+                                height: 100,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                            Text(
+                              'Front Side',
+                              style: FlutterFlowTheme.of(context).bodyText1,
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  },
+
+                ),
+              ),
+            ):Container(),
+            FFButtonWidget(
+              onPressed: () {
+
+                Navigator.push(context,
+                    MaterialPageRoute(builder:
+                        (context) =>
+                            firstPage()
+                    ));
+              },
+              text: 'Next',
+              options: FFButtonOptions(
+                width: 150,
+                height: 50,
+                color: Colors.blue,
+                textStyle: FlutterFlowTheme.of(context).bodyText1.override(
+                  fontFamily: 'Lexend Deca',
+                  color: Colors.white,
+                  fontSize: 14,
+                  fontWeight: FontWeight.normal,
+                ),
+                elevation: 2,
+                borderSide: BorderSide(
+                  color: Colors.transparent,
+                  width: 1,
+                ),
+              ),
+            )
+          ],
+        )
+        ,
+      ),
+
     );
   }
   saveimg(file,int i)
