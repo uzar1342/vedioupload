@@ -8,6 +8,8 @@ import 'package:vedioupload/secondpage.dart' as d;
 
 
 import 'Calendar.dart';
+import 'flutter_flow/flutter_flow_icon_button.dart';
+import 'flutter_flow/flutter_flow_theme.dart';
 import 'main.dart';
 
 class mainScreen1 extends StatefulWidget {
@@ -34,10 +36,29 @@ class _mainScreen1State extends State<mainScreen1> {
 
     // },    ),
     appBar: AppBar(
-    title: const Text("Valuation", style: TextStyle(
-    fontSize: 19.5, fontWeight: FontWeight.bold,
-    ),
-    ), centerTitle: true,
+      backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
+      automaticallyImplyLeading: false,
+      leading: FlutterFlowIconButton(
+        borderColor: Colors.transparent,
+        borderRadius: 30,
+        borderWidth: 1,
+        buttonSize: 60,
+        icon: Icon(
+          Icons.arrow_back_rounded,
+          color: FlutterFlowTheme.of(context).primaryText,
+          size: 30,
+        ),
+        onPressed: () {
+          Navigator.pop(context);
+        },
+      ),
+      title: Text(
+        'Valution',
+        style: FlutterFlowTheme.of(context).subtitle2,
+      ),
+      actions: [],
+      centerTitle: true,
+      elevation: 0,
     ),
     body:SingleChildScrollView(
       child: Column(
@@ -752,7 +773,7 @@ class _mainScreen1State extends State<mainScreen1> {
 
                   }
 
-                Get.offAll(()=>(MyHomePage(title: 'asd', file: null,)));
+                Get.off(()=>(MyHomePage(title: 'asd', file: null,)));
               },
               child:const Text("Submit", style: TextStyle(
                 fontSize: 20, color: Colors.white,

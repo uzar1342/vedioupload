@@ -9,6 +9,8 @@ import 'package:vedioupload/seconMain.dart';
 
 import 'Calendar.dart';
 import 'Radio.dart';
+import 'flutter_flow/flutter_flow_icon_button.dart';
+import 'flutter_flow/flutter_flow_theme.dart';
 
 
 var location,make,model,variant,colors,transc,trans;
@@ -32,11 +34,30 @@ class _firstPageState extends State<firstPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Valuation", style: TextStyle(
-          fontSize: 19.5, fontWeight: FontWeight.bold,
+      appBar:AppBar(
+        backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
+        automaticallyImplyLeading: false,
+        leading: FlutterFlowIconButton(
+          borderColor: Colors.transparent,
+          borderRadius: 30,
+          borderWidth: 1,
+          buttonSize: 60,
+          icon: Icon(
+            Icons.arrow_back_rounded,
+            color: FlutterFlowTheme.of(context).primaryText,
+            size: 30,
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
         ),
-        ), centerTitle: true,
+        title: Text(
+          'Valution',
+          style: FlutterFlowTheme.of(context).subtitle2,
+        ),
+        actions: [],
+        centerTitle: true,
+        elevation: 0,
       ),
       body:SingleChildScrollView(
         child:Column(
@@ -593,7 +614,7 @@ class _firstPageState extends State<firstPage> {
                     majorIssue1!=null&&vehicleInspection1!=null
                     ) {
                       print(vehicle);
-                      Get.offAll(()=>(mainScreen1()));
+                      Get.off(()=>(mainScreen1()));
                     }
                     else
                       {
