@@ -1,13 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-import 'package:vedioupload/secondpage.dart';
-import 'package:vedioupload/secondpage.dart' as d;
+import 'package:RYMSValuer/secondpage.dart';
+import 'package:RYMSValuer/secondpage.dart' as d;
 
 
 import 'Calendar.dart';
+import 'dashbord.dart';
 import 'flutter_flow/flutter_flow_icon_button.dart';
 import 'flutter_flow/flutter_flow_theme.dart';
 import 'main.dart';
@@ -18,49 +20,14 @@ class mainScreen1 extends StatefulWidget {
   @override
   State<mainScreen1> createState() => _mainScreen1State();
 }
-
+TextEditingController Nos=new TextEditingController();
 class _mainScreen1State extends State<mainScreen1> {
-  TextEditingController Nos=new TextEditingController();
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        home: Scaffold(
-        // bottomNavigationBar: CupertinoButton(
-        // color: Colors.blue,
-        // onPressed: () {
-      // Navigator.push(
-      //   context,
-      //   MaterialPageRoute(builder: (context) => const ()),
-      // );
+    return
 
-    // },    ),
-    appBar: AppBar(
-      backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
-      automaticallyImplyLeading: false,
-      leading: FlutterFlowIconButton(
-        borderColor: Colors.transparent,
-        borderRadius: 30,
-        borderWidth: 1,
-        buttonSize: 60,
-        icon: Icon(
-          Icons.arrow_back_rounded,
-          color: FlutterFlowTheme.of(context).primaryText,
-          size: 30,
-        ),
-        onPressed: () {
-          Navigator.pop(context);
-        },
-      ),
-      title: Text(
-        'Valution',
-        style: FlutterFlowTheme.of(context).subtitle2,
-      ),
-      actions: [],
-      centerTitle: true,
-      elevation: 0,
-    ),
-    body:SingleChildScrollView(
+    SingleChildScrollView(
       child: Column(
         children: [
         SizedBox(height: 7,),
@@ -355,7 +322,7 @@ class _mainScreen1State extends State<mainScreen1> {
                   SizedBox(height: 32,),
           Container(
             height: 150,
-            child: ListTile(
+            child: const ListTile(
               title: Text("Gearshift Level (Gear Engagement )/ Gear Level Play",
                   style: TextStyle(
                     fontSize: 17,
@@ -565,7 +532,7 @@ class _mainScreen1State extends State<mainScreen1> {
                   width: 0.5,
                 ),
                 borderRadius: BorderRadius.circular(5),
-              ),                 child:incalander(),
+              ),                 child:taxcalander(),
               )  ,
             ),
           ),SizedBox(height: 32,),
@@ -582,7 +549,7 @@ class _mainScreen1State extends State<mainScreen1> {
                   width: 0.5,
                 ),
                 borderRadius: BorderRadius.circular(5),
-              ),                 child:incalander(),
+              ),                 child:roadpermit(),
               )  ,
             ),
           ),SizedBox(height: 32,),
@@ -624,7 +591,7 @@ class _mainScreen1State extends State<mainScreen1> {
                     width: 0.5,
                   ),
                   borderRadius: BorderRadius.circular(5),
-                ),                 child:incalander(),
+                ),                 child:Fcvalidity(),
               )  ,
             ),
           ),
@@ -642,7 +609,7 @@ class _mainScreen1State extends State<mainScreen1> {
                     width: 0.5,
                   ),
                   borderRadius: BorderRadius.circular(5),
-                ),                 child:incalander(),
+                ),                 child:VehicalLastService(),
               )  ,
             ),
           ),
@@ -665,7 +632,7 @@ class _mainScreen1State extends State<mainScreen1> {
                   style: TextStyle(
                     fontSize: 17,
                   )),
-              subtitle:tyre1(),
+              subtitle:tyre2(),
               )  ,
             ),SizedBox(height: 32,),
           Container(
@@ -749,41 +716,73 @@ class _mainScreen1State extends State<mainScreen1> {
               )  ,
             ),
           SizedBox(height: 32),
-          Container(
-            width: MediaQuery.of(context).size.width,
-            child: CupertinoButton(
-              color: Colors.blue,
-              onPressed: () {
-
-                if(d.regriUnit1!=null&&d.tailGate1!=null&&d.leftSidegt1!=null&& d.leftCondn1!=null&&
-                d.rightSidegt1!=null&&d.RightCondtn1!=null&&d.loadBody1!=null&&d.overAll1!=null&&
-                d.chassisCnd1!=null&&d.Tyres1!=null&&d.bumper1!=null&&d.lamps1!=null&&
-                d.doorLeft1!=null&&d.doorRight1!=null&&d.dashboard1!=null&&d.ads1!=null&&
-                d.ac1!=null&&Nos.value.text.trim()!=""&&d.seatConf1!=null&&d.engineCnd1!=null&&
-                d.engineOil1!=null&&d.radCon1!=null&&d.diesalPump1!=null&&d.Ignit1!=null&&
-                d.transmission1!=null&&d.gearShift1!=null&&d.transmissionc1!=null&&
-                d.steeringType1!=null&&d.breaks1!=null&&d.axle1!=null&&d.diffrent1!=null&&
-                d.suspension1!=null&&d.battery!=null&&d.stater1!=null&&d.alternator1!=null&&
-                d.tankerBody1!=null&&d.vehicle1!=null&&d.forward1!=null&&d.backward1!=null&&
-                d.padel1!=null&&d.vehicleCondition1!=null&&d.insuarance1!=null&&
-                    incalander1.value.text.trim()!=""&&taxcalander1.value.text.trim()!=""&&
-                    roadpermit1.value.text.trim()!=""
-                )
-                  {
-
-                  }
-
-                Get.off(()=>(MyHomePage(title: 'asd', file: null,)));
-              },
-              child:const Text("Submit", style: TextStyle(
-                fontSize: 20, color: Colors.white,
-              )),
-            ),
-          )
+          // Container(
+          //   width: MediaQuery.of(context).size.width,
+          //   child: CupertinoButton(
+          //     color: Colors.blue,
+          //     onPressed: () {
+          //       print(steeringType1);
+          //       if(d.regriUnit1!=null
+          //           &&d.tailGate1!=null&&d.leftSidegt1!=null&& d.leftCondn1!=null&&
+          //           d.rightSidegt1!=null&&d.RightCondtn1!=null
+          //           &&d.loadBody1!=null&&d.overAll1!=null&&
+          //           d.chassisCnd1!=null&&d.Tyres1!=null&&d.bumper1!=null&&d.lamps1!=null&&
+          //           d.doorLeft1!=null&&d.doorRight1!=null&&d.dashboard1!=null&&d.ads1!=null&&
+          //           d.ac1!=null&&Nos.value.text.trim()!=""&&d.seatConf1!=null&&d.engineCnd1!=null&&
+          //           d.engineOil1!=null
+          //           &&d.forward1!=null&&d.backward1!=null &&
+          //           d.padel1!=null&&d.vehicleCondition1!=null&&d.insuarance1!=null&&
+          //           incalander1.value.text.trim()!=""&&taxcalander1.value.text.trim()!=""&&
+          //           roadpermit1.value.text.trim()!=""&&d.hypo1!=null&&d.hpaBank1!=null&&
+          //           fcvalidity1.value.text.trim()!=""&&VehicalLastService1.value.text.trim()!=""&&
+          //           d.tyre11!=null&&d.tyre21!=null&&d.tyre31!=null&&d.tyre41!=null&&d.tyre51!=null&&
+          //           d.tyre61!=null&&d.tyre71!=null&&d.tyre81!=null&&d.tyre91!=null&&d.tyre101!=null
+          //           &&d.radCon1!=null&&d.diesalPump1!=null&&d.Ignit1!=null&&
+          //       d.transmission1!=null&&d.gearShift1!=null&&d.transmissionc1!=null&&
+          //           d.steeringType1!=null&&d.breaks1!=null&&d.axle1!=null&&d.diffrent1!=null&&
+          //           d.suspension1!=null&&d.battery!=null&&d.stater1!=null&&d.alternator1!=null&&
+          //           d.tankerBody1!=null&&d.vehicle1!=null)
+          //         {
+          //       d.tailGate1=null;d.leftSidegt1=null; d.leftCondn1=null;
+          //       d.rightSidegt1=null;d.RightCondtn1=null
+          //       ;d.loadBody1=null;overAll1=null;
+          //       d.chassisCnd1=null;d.Tyres1=null;d.bumper1=null;d.lamps1=null;
+          //       d.doorLeft1=null;d.doorRight1=null;d.dashboard1=null;d.ads1=null;
+          //       d.ac1=null;d.seatConf1=null;d.engineCnd1=null;
+          //       d.engineOil1=null;d.forward1=null;d.backward1=null;
+          //       d.padel1=null;d.vehicleCondition1=null;d.insuarance1=null;
+          //      d.hypo1=null;d.hpaBank1=null;
+          //       d.tyre11=null;d.tyre21=null;d.tyre31=null;d.tyre41=null;d.tyre51=null;
+          //       d.tyre61=null;d.tyre71=null;d.tyre81=null;d.tyre91=null;d.tyre101=null
+          //       ;d.radCon1=null;d.diesalPump1=null;d.Ignit1=null;
+          //       d.transmission1=null;d.gearShift1=null;d.transmissionc1=null;
+          //       d.steeringType1=null;d.breaks1=null;d.axle1=null;d.diffrent1=null;
+          //       d.suspension1=null;d.battery1=null;d.stater1=null;d.alternator1=null;
+          //       d.tankerBody1=null;
+          //       d.vehicle1=null;
+          //           incalander1.text="";
+          //           taxcalander1.text="";
+          //           roadpermit1.text="";
+          //           hypo1.text="";
+          //           fcvalidity1.text="";
+          //           VehicalLastService1.text="";
+          //           Get.off(()=>(vehical()));
+          //         }
+          //       else
+          //       {
+          //         Fluttertoast.showToast(msg: "Fill Form");
+          //       }
+          //
+          //     },
+          //     child:const Text("Submit", style: TextStyle(
+          //       fontSize: 20, color: Colors.white,
+          //     )),
+          //   ),
+          // )
 
         ],
       ),
-    )
-    ));
+    );
+
   }
 }

@@ -18,8 +18,8 @@ import 'package:path_provider/path_provider.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:light_compressor/light_compressor.dart';
-import 'package:vedioupload/signup.dart';
-import 'package:vedioupload/splacescreen.dart';
+import 'package:RYMSValuer/signup.dart';
+import 'package:RYMSValuer/splacescreen.dart';
 import 'camera.dart';
 import 'dashbord.dart';
 import 'firstpage.dart';
@@ -141,11 +141,7 @@ class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
   int percentage=0;
   bool loadee=true;
-  Directory findRoot(FileSystemEntity entity) {
-    final Directory parent = entity.parent;
-    if (parent.path == entity.path) return parent;
-    return findRoot(parent);
-  }
+
   final picker = ImagePicker();
 
 
@@ -481,391 +477,335 @@ getinfo()
 var selectedValue;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
-        automaticallyImplyLeading: false,
-        leading: FlutterFlowIconButton(
-          borderColor: Colors.transparent,
-          borderRadius: 30,
-          borderWidth: 1,
-          buttonSize: 60,
-          icon: Icon(
-            Icons.arrow_back_rounded,
-            color: FlutterFlowTheme.of(context).primaryText,
-            size: 30,
+    return LoaderOverlay(
+      child: Column(
+        mainAxisSize: MainAxisSize.max,
+        children: [
+          Row(
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Expanded(
+                child: Container(
+                  width: 100,
+                  height: 150,
+                  decoration: BoxDecoration(
+                    color: Colors.blue,
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        width: 100,
+                        height: 100,
+                        decoration: BoxDecoration(
+                          color: Colors.lightBlueAccent,
+                          shape: BoxShape.circle,
+                        ),
+                        child: Icon(
+                          Icons.camera_alt,
+                          color: Colors.black,
+                          size: 50,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
           ),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
-        title: Text(
-          'Image',
-          style: FlutterFlowTheme.of(context).subtitle2,
-        ),
-        actions: [],
-        centerTitle: true,
-        elevation: 0,
-      ),
-      body: LoaderOverlay(
-        child: Column(
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            Row(
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                Expanded(
-                  child: Container(
-                    width: 100,
-                    height: 150,
-                    decoration: BoxDecoration(
-                      color: Colors.blue,
-                    ),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Container(
-                          width: 100,
-                          height: 100,
-                          decoration: BoxDecoration(
-                            color: Colors.lightBlueAccent,
-                            shape: BoxShape.circle,
+          Row(
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              desFile.trim()==""?Expanded(
+                child: GestureDetector(
+                  onTap: (){
+                    _pickVideo();
+                  },
+                  child: Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
+                    child: Container(
+                      width: 50,
+                      height: 50,
+                      decoration: BoxDecoration(
+                        color: FlutterFlowTheme.of(context).secondaryBackground,
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(
+                          color: FlutterFlowTheme.of(context).secondaryColor,
+                          width: 1,
+                        ),
+                      ),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Align(
+                            alignment: AlignmentDirectional(-0.6, 0),
+                            child: Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
+                              child: Text(
+                                'Select Vedio',
+                                textAlign: TextAlign.start,
+                                style: FlutterFlowTheme.of(context).bodyText1,
+                              ),
+                            ),
                           ),
-                          child: Icon(
-                            Icons.camera_alt,
+                          Icon(
+                            Icons.navigate_next,
                             color: Colors.black,
-                            size: 50,
+                            size: 24,
                           ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ):
+              Expanded(
+                child: GestureDetector(
+                  onTap: (){
+                  },
+                  child: Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
+                    child: Container(
+                      width: 50,
+                      height: 50,
+                      decoration: BoxDecoration(
+                        color: FlutterFlowTheme.of(context).secondaryBackground,
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(
+                          color: FlutterFlowTheme.of(context).secondaryColor,
+                          width: 1,
+                        ),
+                      ),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Align(
+                            alignment: AlignmentDirectional(-0.6, 0),
+                            child: Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
+                              child: Text(
+                                'Select Vedio',
+                                textAlign: TextAlign.start,
+                                style: FlutterFlowTheme.of(context).bodyText1,
+                              ),
+                            ),
+                          ),
+                          const Icon(
+                            Icons.check,
+                            color: Colors.black,
+                            size: 24,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          widget.file!=null? Row(
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Expanded(
+                child: GestureDetector(
+                  onTap: () async {
+
+                  },
+                  child: Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
+                    child: Container(
+                      width: 50,
+                      height: 50,
+                      decoration: BoxDecoration(
+                        color: FlutterFlowTheme.of(context).secondaryBackground,
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(
+                          color: FlutterFlowTheme.of(context).secondaryColor,
+                          width: 1,
+                        ),
+                      ),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Align(
+                            alignment: AlignmentDirectional(-0.6, 0),
+                            child: Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
+                              child: Text(
+                                'Select Image',
+                                textAlign: TextAlign.start,
+                                style: FlutterFlowTheme.of(context).bodyText1,
+                              ),
+                            ),
+                          ),
+                          Icon(
+                            Icons.check,
+                            color: Colors.black,
+                            size: 24,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ): Row(
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Expanded(
+                child: GestureDetector(
+                  onTap: () async {
+                    var status = await Permission.storage.status;
+                    var list = List<String>.generate(20, (i) => (i + 1).toString());
+                    if (!status.isGranted) {
+                      await Permission.storage.request();
+                      await Permission.accessMediaLocation.request();
+                      if(sdk >= 30) {
+                        await Permission.manageExternalStorage.request();
+                      }
+                      return;
+                    }
+
+                    else
+                    {
+
+                      Navigator.pushReplacement(context,
+                          MaterialPageRoute(builder:
+                              (context) =>
+                              TakePictureScreen( title: list, name: 'arbaz',)
+                          ));
+                    }
+
+
+                  },
+                  child: Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
+                    child: Container(
+                      width: 50,
+                      height: 50,
+                      decoration: BoxDecoration(
+                        color: FlutterFlowTheme.of(context).secondaryBackground,
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(
+                          color: FlutterFlowTheme.of(context).secondaryColor,
+                          width: 1,
+                        ),
+                      ),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Align(
+                            alignment: AlignmentDirectional(-0.6, 0),
+                            child: Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
+                              child: Text(
+                                'Select Image',
+                                textAlign: TextAlign.start,
+                                style: FlutterFlowTheme.of(context).bodyText1,
+                              ),
+                            ),
+                          ),
+                          const Icon(
+                            Icons.navigate_next,
+                            color: Colors.black,
+                            size: 24,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          widget.file!=null? Padding(
+            padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
+            child: GridView.builder(
+              physics: NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
+              itemCount:  widget.file.length,
+              padding: EdgeInsets.zero,
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                crossAxisSpacing: 2,
+                mainAxisSpacing: 2,
+                childAspectRatio: 1,
+              ),
+              scrollDirection: Axis.vertical,
+              itemBuilder: (BuildContext context, int index) {
+                return GestureDetector(
+                  onTap: (){
+                    showDialog(
+                        context: context,
+                        builder: (context) => AlertDialog(
+                          title: const Text(
+                            "View Image",
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          content: SingleChildScrollView(
+                            child: Form(
+                              child: Column(
+                                children: [
+                                  Image.file(File(widget.file[index]!.path)),
+                                  Row(
+                                    children: [
+                                      ElevatedButton(onPressed: (){
+
+                                        setState(() {
+                                          Navigator.pop(context);
+                                          widget.file.removeAt(index);
+                                        });}, child: Text("Delect")),
+                                      ElevatedButton(onPressed: (){
+                                        setState(() {
+                                          Navigator.pop(context);
+                                          picimg(index);
+                                        });}, child: Text("retake")),
+                                    ],
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                        ));
+                  },
+                  child: Card(
+                    clipBehavior: Clip.antiAliasWithSaveLayer,
+                    color: Color(0xFFF5F5F5),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Expanded(
+                          child: Image.file(
+                            File(widget.file[index]!.path),
+                            width: double.infinity,
+                            height: 100,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                        Text(
+                          'Front Side',
+                          style: FlutterFlowTheme.of(context).bodyText1,
                         ),
                       ],
                     ),
                   ),
-                ),
-              ],
-            ),
-            Row(
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                desFile.trim()==""?Expanded(
-                  child: GestureDetector(
-                    onTap: (){
-                      _pickVideo();
-                    },
-                    child: Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
-                      child: Container(
-                        width: 50,
-                        height: 50,
-                        decoration: BoxDecoration(
-                          color: FlutterFlowTheme.of(context).secondaryBackground,
-                          borderRadius: BorderRadius.circular(10),
-                          border: Border.all(
-                            color: FlutterFlowTheme.of(context).secondaryColor,
-                            width: 1,
-                          ),
-                        ),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Align(
-                              alignment: AlignmentDirectional(-0.6, 0),
-                              child: Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
-                                child: Text(
-                                  'Select Vidio',
-                                  textAlign: TextAlign.start,
-                                  style: FlutterFlowTheme.of(context).bodyText1,
-                                ),
-                              ),
-                            ),
-                            Icon(
-                              Icons.navigate_next,
-                              color: Colors.black,
-                              size: 24,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                ):
-                Expanded(
-                  child: GestureDetector(
-                    onTap: (){
-                    },
-                    child: Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
-                      child: Container(
-                        width: 50,
-                        height: 50,
-                        decoration: BoxDecoration(
-                          color: FlutterFlowTheme.of(context).secondaryBackground,
-                          borderRadius: BorderRadius.circular(10),
-                          border: Border.all(
-                            color: FlutterFlowTheme.of(context).secondaryColor,
-                            width: 1,
-                          ),
-                        ),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Align(
-                              alignment: AlignmentDirectional(-0.6, 0),
-                              child: Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
-                                child: Text(
-                                  'Select Vidio',
-                                  textAlign: TextAlign.start,
-                                  style: FlutterFlowTheme.of(context).bodyText1,
-                                ),
-                              ),
-                            ),
-                            Icon(
-                              Icons.check,
-                              color: Colors.black,
-                              size: 24,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            widget.file!=null? Row(
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                Expanded(
-                  child: GestureDetector(
-                    onTap: () async {
-
-
-
-                  },
-                    child: Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
-                      child: Container(
-                        width: 50,
-                        height: 50,
-                        decoration: BoxDecoration(
-                          color: FlutterFlowTheme.of(context).secondaryBackground,
-                          borderRadius: BorderRadius.circular(10),
-                          border: Border.all(
-                            color: FlutterFlowTheme.of(context).secondaryColor,
-                            width: 1,
-                          ),
-                        ),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Align(
-                              alignment: AlignmentDirectional(-0.6, 0),
-                              child: Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
-                                child: Text(
-                                  'SelectImage',
-                                  textAlign: TextAlign.start,
-                                  style: FlutterFlowTheme.of(context).bodyText1,
-                                ),
-                              ),
-                            ),
-                            Icon(
-                              Icons.check,
-                              color: Colors.black,
-                              size: 24,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ): Row(
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                Expanded(
-                  child: GestureDetector(
-                    onTap: () async {
-                      var status = await Permission.storage.status;
-                      var list = List<String>.generate(20, (i) => (i + 1).toString());
-                      if (!status.isGranted) {
-                        await Permission.storage.request();
-                        await Permission.accessMediaLocation.request();
-                        if(sdk >= 30) {
-                          await Permission.manageExternalStorage.request();
-                        }
-                        return;
-                      }
-
-                      else
-                      {
-
-                        Navigator.pushReplacement(context,
-                            MaterialPageRoute(builder:
-                                (context) =>
-                                TakePictureScreen( title: list, name: 'arbaz',)
-                            ));
-                      }
-
-
-                    },
-                    child: Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
-                      child: Container(
-                        width: 50,
-                        height: 50,
-                        decoration: BoxDecoration(
-                          color: FlutterFlowTheme.of(context).secondaryBackground,
-                          borderRadius: BorderRadius.circular(10),
-                          border: Border.all(
-                            color: FlutterFlowTheme.of(context).secondaryColor,
-                            width: 1,
-                          ),
-                        ),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Align(
-                              alignment: AlignmentDirectional(-0.6, 0),
-                              child: Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
-                                child: Text(
-                                  'SelectImage',
-                                  textAlign: TextAlign.start,
-                                  style: FlutterFlowTheme.of(context).bodyText1,
-                                ),
-                              ),
-                            ),
-                            Icon(
-                              Icons.navigate_next,
-                              color: Colors.black,
-                              size: 24,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-           widget.file!=null? Expanded(
-              child: Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
-                child: GridView.builder(
-                  itemCount:  widget.file.length,
-                  padding: EdgeInsets.zero,
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 2,
-                    mainAxisSpacing: 2,
-                    childAspectRatio: 1,
-                  ),
-                  scrollDirection: Axis.vertical,
-                  itemBuilder: (BuildContext context, int index) {
-                    return GestureDetector(
-                      onTap: (){
-                        showDialog(
-                            context: context,
-                            builder: (context) => AlertDialog(
-                              title: const Text(
-                                "View Image",
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                              content: SingleChildScrollView(
-                                child: Form(
-                                  child: Column(
-                                    children: [
-                                      Image.file(File(widget.file[index]!.path)),
-                                      Row(
-                                        children: [
-                                          ElevatedButton(onPressed: (){
-
-                                            setState(() {
-                                              Navigator.pop(context);
-                                              widget.file.removeAt(index);
-                                            });}, child: Text("Delect")),
-                                          ElevatedButton(onPressed: (){
-                                            setState(() {
-                                              Navigator.pop(context);
-                                              picimg(index);
-                                            });}, child: Text("retake")),
-                                        ],
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ));
-                      },
-                      child: Card(
-                        clipBehavior: Clip.antiAliasWithSaveLayer,
-                        color: Color(0xFFF5F5F5),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            Expanded(
-                              child: Image.file(
-                                File(widget.file[index]!.path),
-                                width: double.infinity,
-                                height: 100,
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                            Text(
-                              'Front Side',
-                              style: FlutterFlowTheme.of(context).bodyText1,
-                            ),
-                          ],
-                        ),
-                      ),
-                    );
-                  },
-
-                ),
-              ),
-            ):Container(),
-            FFButtonWidget(
-              onPressed: () {
-
-                Navigator.push(context,
-                    MaterialPageRoute(builder:
-                        (context) =>
-                            firstPage()
-                    ));
+                );
               },
-              text: 'Next',
-              options: FFButtonOptions(
-                width: 150,
-                height: 50,
-                color: Colors.blue,
-                textStyle: FlutterFlowTheme.of(context).bodyText1.override(
-                  fontFamily: 'Lexend Deca',
-                  color: Colors.white,
-                  fontSize: 14,
-                  fontWeight: FontWeight.normal,
-                ),
-                elevation: 2,
-                borderSide: BorderSide(
-                  color: Colors.transparent,
-                  width: 1,
-                ),
-              ),
-            )
-          ],
-        )
-        ,
-      ),
 
+            ),
+          ):Container(),
+
+        ],
+      )
+      ,
     );
   }
   saveimg(file,int i)

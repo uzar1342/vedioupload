@@ -5,7 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-import 'package:vedioupload/seconMain.dart';
+import 'package:RYMSValuer/seconMain.dart';
 
 import 'Calendar.dart';
 import 'Radio.dart';
@@ -33,33 +33,7 @@ class firstPage extends StatefulWidget {
 class _firstPageState extends State<firstPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar:AppBar(
-        backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
-        automaticallyImplyLeading: false,
-        leading: FlutterFlowIconButton(
-          borderColor: Colors.transparent,
-          borderRadius: 30,
-          borderWidth: 1,
-          buttonSize: 60,
-          icon: Icon(
-            Icons.arrow_back_rounded,
-            color: FlutterFlowTheme.of(context).primaryText,
-            size: 30,
-          ),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
-        title: Text(
-          'Valution',
-          style: FlutterFlowTheme.of(context).subtitle2,
-        ),
-        actions: [],
-        centerTitle: true,
-        elevation: 0,
-      ),
-      body:SingleChildScrollView(
+    return SingleChildScrollView(
         child:Column(
             children: [
               SizedBox(height: 10,),
@@ -598,36 +572,54 @@ class _firstPageState extends State<firstPage> {
                 ),
               ),
               SizedBox(height: 12),
-              Container(
-                width: MediaQuery.of(context).size.width,
-                child: CupertinoButton(
-                  color: Colors.blue,
-                  onPressed: () {
-                    print(incalander1.value.text);
-                    if(vehicle!=null&&Vehicle_Category!=null&&incalander1.value.text.trim()!=""
-                    &&BodyType!=null&&location!=null&&make!=null&&model!=null&&variant!=null&&
-                    colors!=null&&transc!=null&&Odometer.value.text.trim()!=""&&transmission1!=null
-                    &&fuel_type1!=null&&vehicles.value.text.trim()!=""&&
-                    Noofowners.value.text.trim()!=""&&Owners.value.text.trim()!=""&&
-                    Enginenumber.value.text.trim()!=""&&Enginecc.value.text.trim()!=""
-                    &&Chassis.value.text.trim()!=""&&accident1!=null&&
-                    majorIssue1!=null&&vehicleInspection1!=null
-                    ) {
-                      print(vehicle);
-                      Get.off(()=>(mainScreen1()));
-                    }
-                    else
-                      {
-                        Fluttertoast.showToast(msg: "Fill Form");
-                      }
-                  },
-                  child:const Text("Next", style: TextStyle(
-                    fontSize: 20, color: Colors.white,
-                  )),
-                ),
-              )
+              // Container(
+              //   width: MediaQuery.of(context).size.width,
+              //   child: CupertinoButton(
+              //     color: Colors.blue,
+              //     onPressed: () {
+              //       print(incalander1.value.text);
+              //       if(vehicle!=null&&Vehicle_Category!=null&&incalander1.value.text.trim()!=""
+              //       &&BodyType!=null&&location!=null&&make!=null&&model!=null&&variant!=null&&
+              //       colors!=null&&transc!=null&&Odometer.value.text.trim()!=""&&transmission1!=null
+              //       &&fuel_type1!=null&&vrn.value.text.trim()!=""&&
+              //           vehicles.value.text.trim()!=""&&
+              //       Noofowners.value.text.trim()!=""&&Owners.value.text.trim()!=""&&
+              //       Enginenumber.value.text.trim()!=""&&Enginecc.value.text.trim()!=""
+              //       &&Chassis.value.text.trim()!=""&&accident1!=null&&
+              //       majorIssue1!=null&&vehicleInspection1!=null
+              //       )
+              //       {
+              //         vehicle=null;Vehicle_Category=null
+              //             ;BodyType=null;location=null;make=null;model=null;variant=null;
+              //             colors=null;transc=null;transmission1=null
+              //             ;fuel_type1=null;
+              //            accident1=null;
+              //             majorIssue1=null;vehicleInspection1=null;
+              //
+              //
+              //         incalander1.text="";
+              //         vrn.text="";
+              //         Odometer.text="";
+              //         vehicles.text="";
+              //         Noofowners.text="";
+              //         Owners.text="";
+              //         Enginenumber.text="";
+              //         Enginecc.text="";
+              //         Chassis.text="";
+              //         Get.off(()=>(mainScreen1()));
+              //       }
+              //       else
+              //         {
+              //           Fluttertoast.showToast(msg: "Fill Form");
+              //         }
+              //     },
+              //     child:const Text("Next", style: TextStyle(
+              //       fontSize: 20, color: Colors.white,
+              //     )),
+              //   ),
+              // )
             ] ),
-      ),
-    );
+      );
+
   }
 }

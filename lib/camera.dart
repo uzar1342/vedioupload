@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:ui';
+import 'package:RYMSValuer/stepform.dart';
 import 'package:flutter/foundation.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'dart:io';
@@ -16,6 +17,8 @@ import 'package:path_provider/path_provider.dart';
 
 import 'flutter_flow_theme.dart';
 import 'main.dart';
+import 'main.dart' as d;
+
 
 class TakePictureScreen extends StatefulWidget {
   TakePictureScreen({
@@ -39,7 +42,7 @@ class TakePictureScreenState extends State<TakePictureScreen> {
   late Image camerraImage;
   late CameraController _controller;
   late List<CameraDescription> _availableCameras;
-  int len =3;
+  int len =20;
   Future<bool> _onWillPop() async {
     return (await showDialog(
       context: context,
@@ -312,10 +315,11 @@ class TakePictureScreenState extends State<TakePictureScreen> {
 
                         onPressed: () async {
 
+
                           Navigator.pushReplacement(context,
                               MaterialPageRoute(builder:
                                   (context) =>
-                                  MyHomePage(title: widget.name, file: file,)
+                                      stepform(file)
                               ));
                         }
                         , child: const Text("Send",style: TextStyle(fontSize: 25),))),

@@ -2256,7 +2256,7 @@ class _steeringTypeState extends State<steeringType> {
       onPressed: (){
         setState(() {
           selected= index;
-
+          steeringType1=text;
         });
       },
       child: Text(text,
@@ -3609,6 +3609,7 @@ class _tyre1State extends State<tyre1> {
   Widget tyre1(String text, int index){
     return OutlinedButton(
       onPressed: (){
+        print("c,;l");
         setState(() {
           selected= index;
           tyre11=text;
@@ -3680,8 +3681,11 @@ class _tyre2State extends State<tyre2> {
   Widget tyre1(String text, int index){
     return OutlinedButton(
       onPressed: (){
+        print("dfg"+text);
         setState(() {
+
           selected= index;
+
           tyre21=text;
         });
       },

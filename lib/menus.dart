@@ -1,9 +1,9 @@
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:vedioupload/postvaludvechal.dart';
-import 'package:vedioupload/profile.dart';
-import 'package:vedioupload/termandCondition.dart';
+import 'package:RYMSValuer/postvaludvechal.dart';
+import 'package:RYMSValuer/profile.dart';
+import 'package:RYMSValuer/termandCondition.dart';
 
 import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';

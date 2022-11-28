@@ -73,12 +73,13 @@ class _splacescreenState extends State<splacescreen>
         width: double.infinity,
         height: double.infinity,
         decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [Color(0xFFD23369), Color(0xFFD23369), Color(0xFFF06292), Color(0xFFF06292)],
-            stops: [0, 1,1,1],
-            begin: AlignmentDirectional(1, -1),
-            end: AlignmentDirectional(-1, 1),
-          ),
+          color: Colors.white
+          // gradient: LinearGradient(
+          //   colors: [Color(0xFFD23369), Color(0xFFD23369), Color(0xFFF06292), Color(0xFFF06292)],
+          //   stops: [0, 1,1,1],
+          //   begin: AlignmentDirectional(1, -1),
+          //   end: AlignmentDirectional(-1, 1),
+          // ),
         ),
         child: Column(
           mainAxisSize: MainAxisSize.max,

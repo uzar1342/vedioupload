@@ -1,3 +1,4 @@
+import 'package:RYMSValuer/stepform.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -36,7 +37,7 @@ class _vehicalState extends State<vehical> {
             return GestureDetector(
               onTap: (){
                 desFile="";
-                Get.to(()=>(MyHomePage(title: 'asd', file: null,)));
+                Get.to(()=>( stepform(null)));
               },
               child: Row(
                 mainAxisSize: MainAxisSize.max,
@@ -85,41 +86,37 @@ class _vehicalState extends State<vehical> {
                                               children: [
                                                 Padding(
                                                   padding: EdgeInsetsDirectional.fromSTEB(
-                                                      10, 10, 10, 10),
+                                                      10,0, 10, 10),
                                                   child: Text(
                                                     'MH01AE8017',
                                                     style: FlutterFlowTheme.of(context)
                                                         .subtitle1,
                                                   ),
                                                 ),
-                                                Padding(
-                                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                                      0, 10, 10, 0),
-                                                  child: Container(
-                                                    width: 90,
-                                                    height: 40,
-                                                    decoration: BoxDecoration(
-                                                      color: Color(0xFF711414),
-                                                      borderRadius: BorderRadius.only(
-                                                        bottomLeft: Radius.circular(10),
-                                                        bottomRight: Radius.circular(0),
-                                                        topLeft: Radius.circular(0),
-                                                        topRight: Radius.circular(10),
-                                                      ),
+                                                Container(
+                                                  width: 90,
+                                                  height: 40,
+                                                  decoration: BoxDecoration(
+                                                    color: Color(0xFF711414),
+                                                    borderRadius: BorderRadius.only(
+                                                      bottomLeft: Radius.circular(10),
+                                                      bottomRight: Radius.circular(0),
+                                                      topLeft: Radius.circular(0),
+                                                      topRight: Radius.circular(10),
                                                     ),
-                                                    child: Padding(
-                                                      padding:
-                                                      EdgeInsetsDirectional.fromSTEB(
-                                                          0, 10, 0, 0),
-                                                      child: Text(
-                                                        'MSCVSA',
-                                                        textAlign: TextAlign.center,
-                                                        style: FlutterFlowTheme.of(context)
-                                                            .bodyText1
-                                                            .override(
-                                                          fontFamily: 'Poppins',
-                                                          color: Color(0xFFEAEDEF),
-                                                        ),
+                                                  ),
+                                                  child: Padding(
+                                                    padding:
+                                                    EdgeInsetsDirectional.fromSTEB(
+                                                        0, 10, 0, 0),
+                                                    child: Text(
+                                                      'MSCVSA',
+                                                      textAlign: TextAlign.center,
+                                                      style: FlutterFlowTheme.of(context)
+                                                          .bodyText1
+                                                          .override(
+                                                        fontFamily: 'Poppins',
+                                                        color: Color(0xFFEAEDEF),
                                                       ),
                                                     ),
                                                   ),
