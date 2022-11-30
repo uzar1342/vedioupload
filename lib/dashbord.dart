@@ -1,10 +1,7 @@
 import 'package:RYMSValuer/stepform.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-
-import 'flutter_flow/flutter_flow_icon_button.dart';
+import 'demo.dart';
 import 'flutter_flow/flutter_flow_theme.dart';
 import 'main.dart';
 
@@ -37,7 +34,7 @@ class _vehicalState extends State<vehical> {
             return GestureDetector(
               onTap: (){
                 desFile="";
-                Get.to(()=>( stepform(null)));
+                Navigator.push(context, MaterialPageRoute(builder: (c)=>tab( )));
               },
               child: Row(
                 mainAxisSize: MainAxisSize.max,
@@ -47,9 +44,9 @@ class _vehicalState extends State<vehical> {
                       padding: const EdgeInsetsDirectional.fromSTEB(10, 10, 10, 0),
                       child: Card(
                         clipBehavior: Clip.antiAliasWithSaveLayer,
-                        color: Color(0xFFF5F5F5),
+                        color: const Color(0xFFF5F5F5),
                         elevation: 5,
-                        shape: RoundedRectangleBorder(
+                        shape: const RoundedRectangleBorder(
                           borderRadius: BorderRadius.only(
                             bottomLeft: Radius.circular(0),
                             bottomRight: Radius.circular(0),

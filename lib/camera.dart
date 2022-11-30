@@ -42,7 +42,7 @@ class TakePictureScreenState extends State<TakePictureScreen> {
   late Image camerraImage;
   late CameraController _controller;
   late List<CameraDescription> _availableCameras;
-  int len =20;
+  int len =2;
   Future<bool> _onWillPop() async {
     return (await showDialog(
       context: context,
@@ -319,7 +319,7 @@ class TakePictureScreenState extends State<TakePictureScreen> {
                           Navigator.pushReplacement(context,
                               MaterialPageRoute(builder:
                                   (context) =>
-                                      stepform(file)
+                                      ImageAndVidio( title: 'asd', file: file,)
                               ));
                         }
                         , child: const Text("Send",style: TextStyle(fontSize: 25),))),

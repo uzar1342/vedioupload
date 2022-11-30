@@ -14,7 +14,6 @@ class ProfileWidget extends StatefulWidget {
 
 class _ProfileWidgetState extends State<ProfileWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
