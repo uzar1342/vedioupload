@@ -191,7 +191,7 @@ class _stepformState extends State<stepform> {
             title: new Text('Address'),
             content: Container(
             height: MediaQuery.of(context).size.height,
-            width:MediaQuery.of(context).size.width,child: const p1.firstPage()),
+            width:MediaQuery.of(context).size.width,child:  p1.firstPage1(fun: (){},)),
             isActive: _currentStep >= 0,
             state: _currentStep >= 1 ?
             step.StepState.complete : step.StepState.disabled,
@@ -199,8 +199,8 @@ class _stepformState extends State<stepform> {
           step.Step(
             title:  const Text('Mobile Number'),
             content: Container(
-    height: MediaQuery.of(context).size.height,
-    width:MediaQuery.of(context).size.width,child: const p2.mainScreen1()),
+            height: MediaQuery.of(context).size.height,
+            width:MediaQuery.of(context).size.width,child:  const p2.mainScreen1()),
             isActive:_currentStep >= 0,
             state: _currentStep >= 2 ?
             step.StepState.complete : step.StepState.disabled,

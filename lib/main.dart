@@ -22,6 +22,7 @@ import 'package:RYMSValuer/signup.dart';
 import 'package:RYMSValuer/splacescreen.dart';
 import 'camera.dart';
 import 'dashbord.dart';
+import 'demo.dart';
 import 'firstpage.dart';
 import 'flutter_flow/flutter_flow_icon_button.dart';
 import 'flutter_flow/flutter_flow_widgets.dart';
@@ -43,8 +44,13 @@ class dasbod extends StatefulWidget {
 }
 int _selectedIndex = 0;
 class _dasbodState extends State<dasbod> {
+
   @override
   void initState() {
+
+    iAndv="";
+    f1="";
+    f2="";
     _widgetOptions = <Widget>[
       vehical(),
       ProfWidget()
@@ -129,15 +135,19 @@ class vidioupload extends StatelessWidget {
   }
 }
 
-                      class ImageAndVidio extends StatefulWidget {
-   ImageAndVidio( {super.key, required this.title,required this.file});
+class ImageAndVidio extends StatefulWidget {
+   ImageAndVidio( {super.key, required this.title, required this.fun,required this.file});
   var file;
+   Function fun;
   final String title;
   @override
   State<ImageAndVidio> createState() => _ImageAndVidioState();
 }
 var vidio;
 class _ImageAndVidioState extends State<ImageAndVidio> {
+
+
+
   int _counter = 0;
   int percentage=0;
   bool loadee=true;
@@ -408,6 +418,7 @@ getinfo()
   }
   singpicimg(int index)
   async {
+
     final XFile? image = await _picker.pickImage(source: ImageSource.camera,imageQuality: 50);
     if(image!=null) {
       singlepicfile[index] = image;
@@ -416,9 +427,24 @@ getinfo()
     setState(() {
     });
   }
+  permition()
+  async {
+    var status = await Permission.storage.status;
+    var list = List<String>.generate(20, (i) => (i + 1).toString());
+    if (!status.isGranted) {
+      await Permission.storage.request();
+      await Permission.accessMediaLocation.request();
+      if(sdk >= 30) {
+        await Permission.manageExternalStorage.request();
+      }
+      return;
+    }
+
+  }
   @override
   void initState() {
     widget.file !=null?save():(){};
+    permition();
     getinfo();
     super.initState();
   }
@@ -450,11 +476,11 @@ List singlepicfile=List.filled(20, "");
                           Container(
                             width: 100,
                             height: 100,
-                            decoration: BoxDecoration(
+                            decoration: const BoxDecoration(
                               color: Colors.lightBlueAccent,
                               shape: BoxShape.circle,
                             ),
-                            child: Icon(
+                            child: const Icon(
                               Icons.camera_alt,
                               color: Colors.black,
                               size: 50,
@@ -471,8 +497,21 @@ List singlepicfile=List.filled(20, "");
                 children: [
                   desFile.trim()==""?Expanded(
                     child: GestureDetector(
-                      onTap: (){
-                        _pickVideo();
+                      onTap: () async {
+    var status = await Permission.storage.status;
+    var list = List<String>.generate(20, (i) => (i + 1).toString());
+    if (!status.isGranted) {
+    await Permission.storage.request();
+    await Permission.accessMediaLocation.request();
+    if(sdk >= 30) {
+    await Permission.manageExternalStorage.request();
+    }
+    return;
+    }
+
+    else {
+      _pickVideo();
+    }
                       },
                       child: Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
@@ -866,7 +905,46 @@ List singlepicfile=List.filled(20, "");
 
                 ),
               ),
-ElevatedButton(onPressed: (){DefaultTabController.of(context)?.animateTo(1);}, child: Text("Next"))
+      ElevatedButton(onPressed: (){
+
+        print(singlepicfile.toString());
+        if(widget.file==null) {
+                      int c = 0;
+                      for (var x in singlepicfile) {
+                        if (x.toString().trim() == "") {
+                          c++;
+                        }
+                      }
+                      if (c == 0 && desFile.trim()!="") {
+                        iAndv="kdf";
+                        widget.fun();
+                        context.loaderOverlay.hide();
+                        DefaultTabController.of(context)?.animateTo(1);
+                      }
+                      else
+                        {
+                          context.loaderOverlay.hide();
+                          Fluttertoast.showToast(msg: "Select All image And Video");
+                        }
+
+                     // DefaultTabController.of(context)?.notifyListeners();
+
+                    }
+
+        else
+          {
+            if(desFile.trim()!="") {
+              iAndv="kdf";
+              widget.fun();
+              DefaultTabController.of(context)?.animateTo(1);
+            }
+            else
+              {
+
+                Fluttertoast.showToast(msg: "Select Video");
+              }
+          }
+                  }, child: Text("Next"))
             ],
           ),
         )

@@ -6,6 +6,8 @@ import 'dashbord.dart';
 import 'firstpage.dart';
 import 'flutter_flow/flutter_flow_icon_button.dart';
 import 'flutter_flow/flutter_flow_theme.dart';
+import 'form1.dart';
+import 'form2.dart';
 import 'main.dart';
 class tab extends StatelessWidget {
   @override
@@ -20,9 +22,13 @@ class tab extends StatelessWidget {
   }
 }
 
-class HomePage extends StatefulWidget {
-   HomePage({Key? key}) : super(key: key);
+String iAndv="",f1="",f2="";
 
+
+
+class HomePage extends StatefulWidget {
+   HomePage({Key? key, this.file}) : super(key: key);
+var file;
   @override
   State<HomePage> createState() => _HomePageState();
 }
@@ -42,6 +48,13 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
     tabController.dispose();
     super.dispose();
   }
+
+  void refress()
+  {
+    setState(() {
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -60,7 +73,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
               size: 30,
             ),
             onPressed: () {
-              Get.off(()=>vehical());
+              Get.offAll(()=>const dasbod());
             },
           ),
           title: Text(
@@ -72,29 +85,42 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
           elevation: 0,
           bottom:  TabBar(
             controller: tabController,
-            indicatorColor: Colors.transparent,
+            indicatorColor: Colors.blue,
             tabs: [
               Tab(
-
-                child: Container(color: Colors.blue,child: Text("A"),),
+                child: Container(child: Row(
+                  children: [
+                    Expanded(child: Text("Image And Vidio",textAlign: TextAlign.center,style: TextStyle(color: Colors.blueAccent,fontSize: 10),)),
+                    iAndv!=""?Expanded(child: Icon(Icons.check,color: Colors.blue,)):Container()
+                  ],
+                ),),
               ),
               Tab(
-
-                  child: Container(color: Colors.blue,child: Text("A"))
+                  child:  Container(child: Row(
+                    children: [
+                       Expanded(child: Text("Form1",textAlign: TextAlign.center,style: TextStyle(color: Colors.blueAccent,fontSize: 10),)),
+                      f1!=""? Expanded(child: Icon(Icons.check,color: Colors.blue,)):Container()
+                    ],
+                  ),)
               ),
               Tab(
-
-                  child: Container(color: Colors.blue,child: Text("A"))
+                  child: Container(child: Row(
+                    children: [
+                      const Expanded(child: Text("Form2",textAlign: TextAlign.center,style: TextStyle(color: Colors.blueAccent,fontSize: 10),)),
+                      f2!=""?const Expanded(child: Icon(Icons.check,color: Colors.blue,)):Container()
+                    ],
+                  ),)
               ),
             ],
           ),
         ),
         body: TabBarView(
-            physics: NeverScrollableScrollPhysics(),
+            physics: const NeverScrollableScrollPhysics(),
           children: [
-            ImageAndVidio(title: 'asd', file: null),
-            firstPage(),
-            mainScreen1()
+            ImageAndVidio(title: 'asd', file: widget.file, fun: ()=>{refress()},),
+            ChecboxWidget(fun: ()=>{refress()}),
+            form2(fun: ()=>{refress()}),
+             const mainScreen1()
           ],
         ),
       ),

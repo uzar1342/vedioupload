@@ -93,7 +93,7 @@ class _vehicalState extends State<vehical> {
                                                 Container(
                                                   width: 90,
                                                   height: 40,
-                                                  decoration: BoxDecoration(
+                                                  decoration: const BoxDecoration(
                                                     color: Color(0xFF711414),
                                                     borderRadius: BorderRadius.only(
                                                       bottomLeft: Radius.circular(10),

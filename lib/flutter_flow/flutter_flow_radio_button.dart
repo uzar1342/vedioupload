@@ -27,6 +27,8 @@
 
 import 'package:flutter/material.dart';
 
+import 'flutter_flow_theme.dart';
+
 class FlutterFlowRadioButton extends StatefulWidget {
   const FlutterFlowRadioButton({
     required this.options,
@@ -112,9 +114,9 @@ enum RadioButtonPosition {
 
 class RadioButtonBuilder<T> {
   RadioButtonBuilder(
-    this.description, {
-    this.buttonPosition = RadioButtonPosition.left,
-  });
+      this.description, {
+        this.buttonPosition = RadioButtonPosition.left,
+      });
 
   final String description;
   final RadioButtonPosition buttonPosition;
@@ -158,19 +160,67 @@ class RadioButton<T> extends StatelessWidget {
     );
     return InkWell(
       onTap: () => onChanged!(value),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          if (buttonPosition == RadioButtonPosition.right) radioButtonText,
-          Radio<T>(
-            groupValue: groupValue,
-            onChanged: onChanged,
-            value: value,
-            activeColor: activeColor,
-            toggleable: toggleable,
+      child: isSelected?Padding(
+        padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
+        child: Material(
+          color: Colors.transparent,
+          elevation: 1,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
           ),
-          if (buttonPosition == RadioButtonPosition.left) radioButtonText,
-        ],
+          child: Container(
+            height: 200,
+            constraints: BoxConstraints(
+              maxHeight: 200,
+              maxWidth: MediaQuery.of(context).size.width * 0.8,
+            ),
+            decoration: BoxDecoration(
+              color: Colors.blueAccent,
+              borderRadius: BorderRadius.circular(10),
+            ),
+
+
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                value.toString(),
+
+
+              ),
+            ),
+          ),
+        ),
+      ):
+      Padding(
+        padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
+        child: Material(
+          color: Colors.transparent,
+          elevation: 1,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: Container(
+            height: 200,
+            constraints: BoxConstraints(
+              maxHeight: 200,
+              maxWidth: MediaQuery.of(context).size.width * 0.8,
+            ),
+            decoration: BoxDecoration(
+              color: FlutterFlowTheme.of(context).secondaryBackground,
+              borderRadius: BorderRadius.circular(10),
+            ),
+
+
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                value.toString(),
+
+
+              ),
+            ),
+          ),
+        ),
       ),
     );
   }
@@ -209,35 +259,35 @@ class RadioGroup<T> extends StatelessWidget {
 
   List<Widget> get _group => items.map(
         (item) {
-          final radioButtonBuilder = itemBuilder(item);
-          return Container(
-            height: optionHeight,
-            child: RadioButton(
-              description: radioButtonBuilder.description,
-              value: item,
-              groupValue: groupValue,
-              onChanged: onChanged,
-              buttonPosition: radioButtonBuilder.buttonPosition,
-              activeColor: activeColor,
-              toggleable: toggleable,
-              textStyle: textStyle,
-              selectedTextStyle: selectedTextStyle,
-              textPadding: textPadding,
-            ),
-          );
-        },
-      ).toList();
+      final radioButtonBuilder = itemBuilder(item);
+      return Container(
+        height: optionHeight,
+        child: RadioButton(
+          description: radioButtonBuilder.description,
+          value: item,
+          groupValue: groupValue,
+          onChanged: onChanged,
+          buttonPosition: radioButtonBuilder.buttonPosition,
+          activeColor: activeColor,
+          toggleable: toggleable,
+          textStyle: textStyle,
+          selectedTextStyle: selectedTextStyle,
+          textPadding: textPadding,
+        ),
+      );
+    },
+  ).toList();
 
   @override
   Widget build(BuildContext context) => direction == Axis.horizontal
       ? Wrap(
-          direction: direction,
-          alignment: horizontalAlignment,
-          children: _group,
-        )
+    direction: direction,
+    alignment: horizontalAlignment,
+    children: _group,
+  )
       : Wrap(
-          direction: direction,
-          crossAxisAlignment: verticalAlignment,
-          children: _group,
-        );
+    direction: direction,
+    crossAxisAlignment: verticalAlignment,
+    children: _group,
+  );
 }

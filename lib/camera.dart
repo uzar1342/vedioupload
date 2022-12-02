@@ -15,6 +15,7 @@ import 'package:http/http.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 
+import 'demo.dart';
 import 'flutter_flow_theme.dart';
 import 'main.dart';
 import 'main.dart' as d;
@@ -319,7 +320,7 @@ class TakePictureScreenState extends State<TakePictureScreen> {
                           Navigator.pushReplacement(context,
                               MaterialPageRoute(builder:
                                   (context) =>
-                                      ImageAndVidio( title: 'asd', file: file,)
+                                      HomePage(file: file)
                               ));
                         }
                         , child: const Text("Send",style: TextStyle(fontSize: 25),))),
