@@ -199,131 +199,127 @@ class TakePictureScreenState extends State<TakePictureScreen> {
                 ): Image.file(File(image!.path)):Image.file(File(file[file.length-1]!.path)),
               ),
               SizedBox(height: 5),
+
+
               widget.len<len?
               loader?
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Align(
-                    alignment: Alignment.topCenter,
-                    child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          fixedSize: Size(w*0.8, h*0.078),
-                          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                          primary: Colors.green,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(6),
-                          ),
-                        ),
+                child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      padding: const EdgeInsets.all(20.0),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(6),
+                      ),
+                    ),
 
-                        onPressed: () async {
-                          try {
-                            await _initializeControllerFuture;
-                            image  = await _controller!.takePicture();
-                            if (!mounted) return;
-                            // If the picture was taken, display it on a new screen.
-                            setState(() {
-                              loader=false;
-                              widget.camraloader=false;
-                            });
-                            // Navigator.pushReplacement(context,
-                            //     MaterialPageRoute(builder:
-                            //         (context) =>
-                            //             picview( file: image!)
-                            //     ));
+                    onPressed: () async {
+                      try {
+                        await _initializeControllerFuture;
+                        image  = await _controller!.takePicture();
+                        if (!mounted) return;
+                        // If the picture was taken, display it on a new screen.
+                        setState(() {
+                          loader=false;
+                          widget.camraloader=false;
+                        });
+                        // Navigator.pushReplacement(context,
+                        //     MaterialPageRoute(builder:
+                        //         (context) =>
+                        //             picview( file: image!)
+                        //     ));
 
 
-                          } catch (e) {
-                            // If an error occurs, log the error to the console.
-                            print(e);
-                          }
-                        }
-                        , child: Text("Take picture",style: const TextStyle(fontSize: 25),))),
+                      } catch (e) {
+                        // If an error occurs, log the error to the console.
+                        print(e);
+                      }
+                    }
+                    , child:Container(width: w*0.8,child: Center(child: const Text("Take picture",style: TextStyle(fontSize: 20),)))),
               ):
               Row(
-               mainAxisSize: MainAxisSize.max,
-               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-               children: [
-                 GestureDetector(
-                   onTap: (){
-                     setState(() {
-                       widget.camraloader=true;
-                       loader=true;
-                     });
-                   },
-                   child: Container(
-                     width: 80,
-                     height: 80,
-                     decoration: BoxDecoration(
-                       color: FlutterFlowTheme.of(context).secondaryColor,
-                       shape: BoxShape.circle,
-                     ),
-                     child: const Icon(
-                       Icons.replay_sharp,
-                       color: Colors.black,
-                       size: 35,
-                     ),
-                   ),
-                 ),
-                 GestureDetector(
-                   onTap: (){
-                     if(widget.len<len) {
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  GestureDetector(
+                    onTap: (){
+                      setState(() {
+                        widget.camraloader=true;
+                        loader=true;
+                      });
+                    },
+                    child: Container(
+                      width: 80,
+                      height: 80,
+                      decoration: BoxDecoration(
+                        color: FlutterFlowTheme.of(context).secondaryColor,
+                        shape: BoxShape.circle,
+                      ),
+                      child: const Icon(
+                        Icons.replay_sharp,
+                        color: Colors.black,
+                        size: 35,
+                      ),
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: (){
+                      if(widget.len<len) {
 
-                       setState(() {
-                       widget.camraloader=true;
-                       widget.len=widget.len+1;
-                       loader=true;
-                     });
-                       if(widget.len==2||widget.len==3||widget.len==5||widget.len==6)
-                       {
-                         _toggleCameraLens();
-                       }
-                       file.add(image);
-                     }
-                    else
+                        setState(() {
+                          widget.camraloader=true;
+                          widget.len=widget.len+1;
+                          loader=true;
+                        });
+                        if(widget.len==2||widget.len==3||widget.len==5||widget.len==6)
+                        {
+                          _toggleCameraLens();
+                        }
+                        file.add(image);
+                      }
+                      else
                       {
 
                       }
-                     },
-                   child: Container(
-                     width: 80,
-                     height: 80,
-                     decoration: BoxDecoration(
-                       color: FlutterFlowTheme.of(context).secondaryColor,
-                       shape: BoxShape.circle,
-                     ),
-                     child: Icon(
-                       Icons.check,
-                       color: Colors.black,
-                       size: 30,
-                     ),
-                   ),
-                 ),
-               ],
-             ):
+                    },
+                    child: Container(
+                      width: 80,
+                      height: 80,
+                      decoration: BoxDecoration(
+                        color: FlutterFlowTheme.of(context).secondaryColor,
+                        shape: BoxShape.circle,
+                      ),
+                      child: Icon(
+                        Icons.check,
+                        color: Colors.black,
+                        size: 30,
+                      ),
+                    ),
+                  ),
+                ],
+              ):
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Align(
-                    alignment: Alignment.topCenter,
-                    child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          fixedSize: Size(w*0.8, h*0.078),
-                          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                          primary: Colors.green,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(6),
-                          ),
-                        ),
+                child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      fixedSize: Size(w*0.8, h*0.1),
+                      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                      primary: Colors.green,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(6),
+                      ),
+                    ),
 
-                        onPressed: () async {
+                    onPressed: () async {
 
 
-                          Navigator.pushReplacement(context,
-                              MaterialPageRoute(builder:
-                                  (context) =>
-                                      HomePage(file: file)
-                              ));
-                        }
-                        , child: const Text("Send",style: TextStyle(fontSize: 25),))),
+                      Navigator.pushReplacement(context,
+                          MaterialPageRoute(builder:
+                              (context) =>
+                              HomePage(file: file)
+                          ));
+                    }
+                    , child: const Text("Send",style: TextStyle(fontSize: 25),)),
               )
 
 

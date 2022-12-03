@@ -548,7 +548,7 @@ class _firstPage1State extends State<firstPage1> {
                   SizedBox(height: 10,),
                   Container(
                     height: 490,
-                    child: ListTile(
+                    child: const ListTile(
                       title: Text("Major Issue",
                           style: TextStyle(
                             fontSize: 17,
@@ -556,8 +556,8 @@ class _firstPage1State extends State<firstPage1> {
                       subtitle: majorIssue() ,
                     ),
                   ),
-                  SizedBox(height: 40,),
-                  Container(
+                  const SizedBox(height: 40,),
+                  const SizedBox(
                     height: 345,
                     child: ListTile(
                       title: Text("Vehicle Inspection",

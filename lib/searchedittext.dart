@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
@@ -15,15 +16,20 @@ class scrachbox extends StatefulWidget {
 
 class _scrachboxState extends State<scrachbox> {
   late TextEditingController controller ;
-
+  bool loader=false;
   // Get json result and convert it to model. Then add
   Future<Null> getUserDetails() async {
-    final response = await http.get(url);
-    final responseJson = json.decode(response.body);
+
+    var response = await Dio().get('https://jsonplaceholder.typicode.com/users');
+    print(response);
+
+
+
 
     setState(() {
-      for (Map user in responseJson) {
+      for (Map user in response.data) {
         _userDetails.add(UserDetails.fromJson(user));
+        loader=true;
       }
     });
   }
@@ -58,7 +64,7 @@ class _scrachboxState extends State<scrachbox> {
           ),
         ),
         Expanded(
-          child: _searchResult.length != 0 || controller.text.isNotEmpty
+          child: _searchResult.isNotEmpty || controller.text.isNotEmpty
               ?  ListView.builder(
             itemCount: _searchResult.length,
             itemBuilder: (context, i) {
@@ -74,13 +80,12 @@ class _scrachboxState extends State<scrachbox> {
               );
             },
           )
-              :  ListView.builder(
+              :  loader?ListView.builder(
             itemCount: _userDetails.length,
             itemBuilder: (context, index) {
               return  Card(
                 margin: const EdgeInsets.all(0.0),
                 child:  ListTile(
-                  leading:  CircleAvatar(backgroundImage:  NetworkImage(_userDetails[index].profileUrl,),),
                   title:  GestureDetector(
                       onTap: (){
                         controller.text=_userDetails[index].lastName;
@@ -90,7 +95,7 @@ class _scrachboxState extends State<scrachbox> {
                 ),
               );
             },
-          ),
+          ):Scaffold(body: Center(child: const CircularProgressIndicator())),
         ),
       ],
     );
@@ -104,8 +109,9 @@ class _scrachboxState extends State<scrachbox> {
     }
 
     _userDetails.forEach((userDetail) {
-      if (userDetail.firstName.contains(text) || userDetail.lastName.contains(text))
+      if (userDetail.firstName.contains(text) || userDetail.lastName.contains(text)) {
         _searchResult.add(userDetail);
+      }
     });
 
     setState(() {});
@@ -120,9 +126,9 @@ Uri.parse('https://jsonplaceholder.typicode.com/users');
 
 class UserDetails {
   final int id;
-  final String firstName, lastName, profileUrl;
+  final String firstName, lastName;
 
-  UserDetails({required this.id, required this.firstName, required this.lastName, this.profileUrl = 'https://i.amz.mshcdn.com/3NbrfEiECotKyhcUhgPJHbrL7zM=/950x534/filters:quality(90)/2014%2F06%2F02%2Fc0%2Fzuckheadsho.a33d0.jpg'});
+  UserDetails({required this.id, required this.firstName, required this.lastName});
 
   factory UserDetails.fromJson(Map<dynamic, dynamic> json) {
     return UserDetails(

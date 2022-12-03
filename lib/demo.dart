@@ -9,6 +9,7 @@ import 'flutter_flow/flutter_flow_theme.dart';
 import 'form1.dart';
 import 'form2.dart';
 import 'main.dart';
+Map<String,dynamic> details={} ;
 class tab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -85,29 +86,32 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
           elevation: 0,
           bottom:  TabBar(
             controller: tabController,
-            indicatorColor: Colors.blue,
+            indicatorColor: Colors.transparent,
             tabs: [
               Tab(
                 child: Container(child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Expanded(child: Text("Image And Vidio",textAlign: TextAlign.center,style: TextStyle(color: Colors.blueAccent,fontSize: 10),)),
-                    iAndv!=""?Expanded(child: Icon(Icons.check,color: Colors.blue,)):Container()
+                    Text("Image And Vidio",textAlign: TextAlign.center,style: TextStyle(color: Colors.blueAccent,fontSize: 10),),
+                    iAndv!=""?Icon(Icons.check,color: Colors.blue,):Container()
                   ],
                 ),),
               ),
               Tab(
                   child:  Container(child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                       Expanded(child: Text("Form1",textAlign: TextAlign.center,style: TextStyle(color: Colors.blueAccent,fontSize: 10),)),
-                      f1!=""? Expanded(child: Icon(Icons.check,color: Colors.blue,)):Container()
+                       Text("Form1",textAlign: TextAlign.center,style: TextStyle(color: Colors.blueAccent,fontSize: 10),),
+                      f1!=""? Icon(Icons.check,color: Colors.blue,):Container()
                     ],
                   ),)
               ),
               Tab(
                   child: Container(child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Expanded(child: Text("Form2",textAlign: TextAlign.center,style: TextStyle(color: Colors.blueAccent,fontSize: 10),)),
-                      f2!=""?const Expanded(child: Icon(Icons.check,color: Colors.blue,)):Container()
+                      Text("Form2",textAlign: TextAlign.center,style: TextStyle(color: Colors.blueAccent,fontSize: 10),),
+                      f2!=""?Icon(Icons.check,color: Colors.blue,):Container()
                     ],
                   ),)
               ),
@@ -120,7 +124,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
             ImageAndVidio(title: 'asd', file: widget.file, fun: ()=>{refress()},),
             ChecboxWidget(fun: ()=>{refress()}),
             form2(fun: ()=>{refress()}),
-             const mainScreen1()
+
           ],
         ),
       ),

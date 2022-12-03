@@ -919,7 +919,10 @@ List singlepicfile=List.filled(20, "");
                         iAndv="kdf";
                         widget.fun();
                         context.loaderOverlay.hide();
+                        details['file']=singlepicfile;
+                        details["vidio"]=desFile;
                         DefaultTabController.of(context)?.animateTo(1);
+
                       }
                       else
                         {
@@ -934,6 +937,8 @@ List singlepicfile=List.filled(20, "");
         else
           {
             if(desFile.trim()!="") {
+              details['file']=widget.file;
+              details["vidio"]=desFile;
               iAndv="kdf";
               widget.fun();
               DefaultTabController.of(context)?.animateTo(1);
