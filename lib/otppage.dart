@@ -1,3 +1,5 @@
+import 'package:shared_preferences/shared_preferences.dart';
+
 import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
@@ -32,66 +34,69 @@ class _OtppageWidgetState extends State<OtppageWidget> {
 
   @override
   Widget build(BuildContext context) {
+    Widget _buildPopupDialog(BuildContext context,text) {
+      return  AlertDialog(
+        title: const Text('Error'),
+        content:  Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children:  <Widget>[
+            text!=null?Text(text):const Text(""),
+          ],
+        ),
+        actions: <Widget>[
+          ElevatedButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            child: const Text('Close'),
+          ),
+        ],
+      );
+    }
     return Scaffold(
       key: scaffoldKey,
-      backgroundColor: Colors.white,
-      body: GestureDetector(
-        onTap: () => FocusScope.of(context).unfocus(),
-        child: Container(
-          width: double.infinity,
-          decoration: const BoxDecoration(
-            color: Colors.white,
-          ),
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(0, 70, 0, 0),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Image.asset(
-                            'asset/logo-withoutBG.png',
-                            width: 240,
-                            height: 60,
-                            fit: BoxFit.fitWidth,
-                          ),
-                        ],
-                      ),
-                    ),
-                    Column(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 192),
-                          child: Image.asset(
-                            'asset/login-concept.png',
-                            width: 300,
-                            height: 270,
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-                Container(
+      backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+      body: SafeArea(
+        child: GestureDetector(
+          onTap: () => FocusScope.of(context).unfocus(),
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(
+                child: Container(
                   width: double.infinity,
+                  height: 100,
+                  decoration: BoxDecoration(
+                    color: FlutterFlowTheme.of(context).secondaryBackground,
+                  ),
+                  child: Image.asset(
+                    'asset/otp.jpg',
+                    width: 50,
+                    height: 100,
+                    fit: BoxFit.contain,
+                  ),
+                ),
+              ),
+              Material(
+                color: Colors.transparent,
+                elevation: 1,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(0),
+                    bottomRight: Radius.circular(0),
+                    topLeft: Radius.circular(10),
+                    topRight: Radius.circular(10),
+                  ),
+                ),
+                child: Container(
                   decoration: BoxDecoration(
                     color: FlutterFlowTheme.of(context).secondaryBackground,
                     boxShadow: const [
                       BoxShadow(
                         blurRadius: 4,
                         color: Color(0x3600000F),
-                        offset: Offset(0, -1),
                       )
                     ],
                     borderRadius: const BorderRadius.only(
@@ -103,6 +108,7 @@ class _OtppageWidgetState extends State<OtppageWidget> {
                   ),
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Padding(
                         padding:
@@ -112,7 +118,7 @@ class _OtppageWidgetState extends State<OtppageWidget> {
                           children: [
                             Padding(
                               padding:
-                              EdgeInsetsDirectional.fromSTEB(0, 0, 16, 0),
+                              const EdgeInsetsDirectional.fromSTEB(0, 0, 16, 0),
                               child: FlutterFlowIconButton(
                                 borderColor: FlutterFlowTheme.of(context)
                                     .primaryBackground,
@@ -126,7 +132,7 @@ class _OtppageWidgetState extends State<OtppageWidget> {
                                   size: 24,
                                 ),
                                 onPressed: () {
-                                  print('IconButton pressed ...');
+                                  Navigator.pop(context);
                                 },
                               ),
                             ),
@@ -148,6 +154,7 @@ class _OtppageWidgetState extends State<OtppageWidget> {
                           children: [
                             Expanded(
                               child: TextFormField(
+                                maxLength: 4,
                                 keyboardType: TextInputType.phone,
                                 controller: phoneNumberController,
                                 obscureText: false,
@@ -174,14 +181,14 @@ class _OtppageWidgetState extends State<OtppageWidget> {
                                     borderRadius: BorderRadius.circular(8),
                                   ),
                                   errorBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
+                                    borderSide: const BorderSide(
                                       color: Color(0x00000000),
                                       width: 2,
                                     ),
                                     borderRadius: BorderRadius.circular(8),
                                   ),
                                   focusedErrorBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
+                                    borderSide: const BorderSide(
                                       color: Color(0x00000000),
                                       width: 2,
                                     ),
@@ -191,7 +198,7 @@ class _OtppageWidgetState extends State<OtppageWidget> {
                                   fillColor: FlutterFlowTheme.of(context)
                                       .secondaryBackground,
                                   contentPadding:
-                                  EdgeInsetsDirectional.fromSTEB(
+                                  const EdgeInsetsDirectional.fromSTEB(
                                       16, 24, 0, 24),
                                 ),
                                 style: FlutterFlowTheme.of(context).subtitle1,
@@ -203,7 +210,7 @@ class _OtppageWidgetState extends State<OtppageWidget> {
                       ),
                       Padding(
                         padding:
-                        EdgeInsetsDirectional.fromSTEB(20, 12, 20, 32),
+                        const EdgeInsetsDirectional.fromSTEB(20, 12, 20, 32),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.end,
@@ -214,20 +221,36 @@ class _OtppageWidgetState extends State<OtppageWidget> {
                                     phoneNumberController!.text;
                                 if (phoneNumberVal == null ||
                                     phoneNumberVal.isEmpty
-                                    ) {
+                                ) {
                                   ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
+                                    const SnackBar(
                                       content: Text(
                                           'Enter otp'),
                                     ),
                                   );
                                   return;
                                 }
-                                Navigator.pushReplacement(context,
-                                    MaterialPageRoute(builder:
-                                        (context) =>
-                                        dasbod()
-                                    ));
+                                if(phoneNumberVal=="1234") {
+                                  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) => _buildPopupDialog(context,"Login Successful"),
+                                  );
+                                  SharedPreferences _prefs = await SharedPreferences.getInstance();
+                                  _prefs.setBool("isUserLoggedInKey",true);
+                                  Navigator.pushReplacement(context,
+                                      MaterialPageRoute(builder:
+                                          (context) =>
+                                          dasbod()
+                                      ));
+                                }
+                                else
+                                {
+
+                                  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) => _buildPopupDialog(context,"Login fail"),
+                                  );
+                                }
                               },
                               text: 'Log In',
                               options: FFButtonOptions(
@@ -255,8 +278,9 @@ class _OtppageWidgetState extends State<OtppageWidget> {
                     ],
                   ),
                 ),
-              ],
-            ),
+
+              ),
+            ],
           ),
         ),
       ),

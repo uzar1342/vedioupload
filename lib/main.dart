@@ -1,6 +1,8 @@
 import 'dart:io';
 import 'dart:typed_data';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter_ffmpeg/flutter_ffmpeg.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
@@ -44,10 +46,31 @@ class dasbod extends StatefulWidget {
 }
 int _selectedIndex = 0;
 class _dasbodState extends State<dasbod> {
+  bool net = true;
+  var subscription;
+  checkinternet() async {
 
+    subscription = Connectivity()
+        .onConnectivityChanged
+        .listen((ConnectivityResult result) {
+      if (result == ConnectivityResult.none) {
+        setState(() {
+          setState(() {
+
+            net = false;
+
+          });
+        });
+      } else {
+        setState(() {
+          net = true;
+        });
+      }
+    });
+  }
   @override
   void initState() {
-
+    checkinternet();
     iAndv="";
     f1="";
     f2="";
@@ -88,12 +111,12 @@ class _dasbodState extends State<dasbod> {
                 color: Colors.black,
                 tabs: [
                   GButton(
-                    icon: Icons.image,
-                    text: 'Home',
+                    icon: FontAwesomeIcons.car,
+                    text: 'Vehicle entry',
                   ),
                   GButton(
-                    icon: Icons.settings,
-                    text: 'Likes',
+                    icon: Icons.menu,
+                    text: 'menu',
                   ),
 
                 ],
@@ -124,7 +147,7 @@ class vidioupload extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      title: 'Flutter Demo',
+      title: 'RYMSValuer',
       theme: ThemeData(
 
         primarySwatch: Colors.blue,
@@ -449,6 +472,28 @@ getinfo()
     super.initState();
   }
 var selectedValue;
+  var list=[
+    "INVENTORY IMAGES",
+    "VEHICLE IMAGES(FRONT)",
+    "REAR IMAGES",
+    "LEFT IMAGES",
+    "RIGHT IMAGES",
+    "INTERIOR FRONT IMAGES",
+    "ENGINE IMAGES",
+    "CHASIS IMAGES",
+    "INTERIOR REAR IMAGES",
+    "SPEEDOMETER IMAGES",
+    "SPARE photo",
+    "TYRE1 IMAGES",
+    "TYRE2 IMAGES",
+    "TYRE3 IMAGES",
+    "TYRE4 IMAGES",
+    "Step-ney tyre IMAGES",
+    "VEHICLE EXIT DETAILS",
+    "VEHICLE PHOTO with AGENT",
+    "RELEASE LETTER IMAGES",
+    "DOCUMENTS IMAGES"
+  ];
 List singlepicfile=List.filled(20, "");
   @override
   Widget build(BuildContext context) {
@@ -463,259 +508,350 @@ List singlepicfile=List.filled(20, "");
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   Expanded(
-                    child: Container(
-                      width: 100,
-                      height: 150,
-                      decoration: BoxDecoration(
-                        color: Colors.blue,
-                      ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Container(
-                            width: 100,
-                            height: 100,
-                            decoration: const BoxDecoration(
-                              color: Colors.lightBlueAccent,
-                              shape: BoxShape.circle,
-                            ),
-                            child: const Icon(
-                              Icons.camera_alt,
-                              color: Colors.black,
-                              size: 50,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              Row(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  desFile.trim()==""?Expanded(
-                    child: GestureDetector(
-                      onTap: () async {
-    var status = await Permission.storage.status;
-    var list = List<String>.generate(20, (i) => (i + 1).toString());
-    if (!status.isGranted) {
-    await Permission.storage.request();
-    await Permission.accessMediaLocation.request();
-    if(sdk >= 30) {
-    await Permission.manageExternalStorage.request();
-    }
-    return;
-    }
-
-    else {
-      _pickVideo();
-    }
-                      },
-                      child: Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
-                        child: Container(
-                          width: 50,
-                          height: 50,
-                          decoration: BoxDecoration(
-                            color: FlutterFlowTheme.of(context).secondaryBackground,
-                            borderRadius: BorderRadius.circular(10),
-                            border: Border.all(
-                              color: FlutterFlowTheme.of(context).secondaryColor,
-                              width: 1,
-                            ),
-                          ),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Align(
-                                alignment: AlignmentDirectional(-0.6, 0),
-                                child: Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
-                                  child: Text(
-                                    'Select Video',
-                                    textAlign: TextAlign.start,
-                                    style: FlutterFlowTheme.of(context).bodyText1,
-                                  ),
-                                ),
-                              ),
-                              Icon(
-                                Icons.navigate_next,
-                                color: Colors.black,
-                                size: 24,
-                              ),
-                            ],
+                    child: Padding(
+                      padding: EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
+                      child: Container(
+                        width: 50,
+                        height: 50,
+                        decoration: BoxDecoration(
+                          color: FlutterFlowTheme.of(context).secondaryBackground,
+                          borderRadius: BorderRadius.circular(10),
+                          border: Border.all(
+                            color: Colors.black,
+                            width: 1,
                           ),
                         ),
-                      ),
-                    ),
-                  ):
-                  Expanded(
-                    child: GestureDetector(
-                      onTap: (){
-                      },
-                      child: Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
-                        child: Container(
-                          width: 50,
-                          height: 50,
-                          decoration: BoxDecoration(
-                            color: FlutterFlowTheme.of(context).secondaryBackground,
-                            borderRadius: BorderRadius.circular(10),
-                            border: Border.all(
-                              color: FlutterFlowTheme.of(context).secondaryColor,
-                              width: 1,
-                            ),
-                          ),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Align(
-                                alignment: AlignmentDirectional(-0.6, 0),
-                                child: Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
-                                  child: Text(
-                                    'Select Video',
-                                    textAlign: TextAlign.start,
-                                    style: FlutterFlowTheme.of(context).bodyText1,
-                                  ),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Expanded(
+                              child: GestureDetector(
+                                onTap: () async {
+                                  if(desFile.trim()=="") {
+                                    var status =
+                                    await Permission.storage.status;
+                                    var list = List<String>.generate(
+                                        20, (i) => (i + 1).toString());
+                                    if (!status.isGranted) {
+                                      await Permission.storage.request();
+                                      await Permission.accessMediaLocation
+                                          .request();
+                                      if (sdk >= 30) {
+                                        await Permission.manageExternalStorage
+                                            .request();
+                                      }
+                                      return;
+                                    } else {
+                                      _pickVideo();
+                                    }
+                                  }
+                                },
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Align(
+                                      alignment: AlignmentDirectional(-0.6, 0),
+                                      child: Padding(
+                                        padding:
+                                        EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
+                                        child: Text(
+                                          'Select Vidio',
+                                          textAlign: TextAlign.start,
+                                          style: FlutterFlowTheme.of(context).bodyText1,
+                                        ),
+                                      ),
+                                    ),
+                                    desFile.trim()!=""?Icon(Icons.check):Container()
+                                  ],
                                 ),
                               ),
-                              const Icon(
-                                Icons.check,
-                                color: Colors.black,
-                                size: 24,
+                            ),
+                            Container(
+                              width: 2,
+                              height: 100,
+                              decoration: BoxDecoration(
+                                color: Colors.black54,
                               ),
-                            ],
-                          ),
+                            ),
+                            Expanded(
+                              child: GestureDetector(
+                                onTap: () async {
+                                  if(widget.file==null)
+                                  {
+                                    var status =
+                                    await Permission.storage.status;
+                                    if (!status.isGranted) {
+                                      await Permission.storage.request();
+                                      await Permission.accessMediaLocation
+                                          .request();
+                                      if (sdk >= 30) {
+                                        await Permission.manageExternalStorage
+                                            .request();
+                                      }
+                                      return;
+                                    } else {
+                                      Navigator.pushReplacement(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  TakePictureScreen(
+                                                    title: list,
+                                                    name: 'arbaz',
+                                                  )));
+                                    }
+                                  }
+                                },
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Align(
+                                      alignment: AlignmentDirectional(0, 0),
+                                      child: Text(
+                                        'Setect mulli Image',
+                                        textAlign: TextAlign.start,
+                                        style: FlutterFlowTheme.of(context).bodyText1,
+                                      ),
+                                    ),
+                                    widget.file!=null?Icon(Icons.check):Container()
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     ),
                   ),
                 ],
               ),
-              widget.file!=null? Row(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Expanded(
-                    child: GestureDetector(
-                      onTap: () async {
+    //           Row(
+    //             mainAxisSize: MainAxisSize.max,
+    //             children: [
+    //               desFile.trim()==""?Expanded(
+    //                 child: GestureDetector(
+    //                   onTap: () async {
+    // var status = await Permission.storage.status;
+    // var list = List<String>.generate(20, (i) => (i + 1).toString());
+    // if (!status.isGranted) {
+    // await Permission.storage.request();
+    // await Permission.accessMediaLocation.request();
+    // if(sdk >= 30) {
+    // await Permission.manageExternalStorage.request();
+    // }
+    // return;
+    // }
+    //
+    // else {
+    //   _pickVideo();
+    // }
+    //                   },
+    //                   child: Padding(
+    //                     padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
+    //                     child: Container(
+    //                       width: 50,
+    //                       height: 50,
+    //                       decoration: BoxDecoration(
+    //                         color: FlutterFlowTheme.of(context).secondaryBackground,
+    //                         borderRadius: BorderRadius.circular(10),
+    //                         border: Border.all(
+    //                           color: FlutterFlowTheme.of(context).secondaryColor,
+    //                           width: 1,
+    //                         ),
+    //                       ),
+    //                       child: Row(
+    //                         mainAxisSize: MainAxisSize.max,
+    //                         mainAxisAlignment: MainAxisAlignment.start,
+    //                         children: [
+    //                           Align(
+    //                             alignment: AlignmentDirectional(-0.6, 0),
+    //                             child: Padding(
+    //                               padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
+    //                               child: Text(
+    //                                 'Select Video',
+    //                                 textAlign: TextAlign.start,
+    //                                 style: FlutterFlowTheme.of(context).bodyText1,
+    //                               ),
+    //                             ),
+    //                           ),
+    //                           Icon(
+    //                             Icons.navigate_next,
+    //                             color: Colors.black,
+    //                             size: 24,
+    //                           ),
+    //                         ],
+    //                       ),
+    //                     ),
+    //                   ),
+    //                 ),
+    //               ):
+    //               Expanded(
+    //                 child: GestureDetector(
+    //                   onTap: (){
+    //                   },
+    //                   child: Padding(
+    //                     padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
+    //                     child: Container(
+    //                       width: 50,
+    //                       height: 50,
+    //                       decoration: BoxDecoration(
+    //                         color: FlutterFlowTheme.of(context).secondaryBackground,
+    //                         borderRadius: BorderRadius.circular(10),
+    //                         border: Border.all(
+    //                           color: FlutterFlowTheme.of(context).secondaryColor,
+    //                           width: 1,
+    //                         ),
+    //                       ),
+    //                       child: Row(
+    //                         mainAxisSize: MainAxisSize.max,
+    //                         mainAxisAlignment: MainAxisAlignment.start,
+    //                         children: [
+    //                           Align(
+    //                             alignment: AlignmentDirectional(-0.6, 0),
+    //                             child: Padding(
+    //                               padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
+    //                               child: Text(
+    //                                 'Select Video',
+    //                                 textAlign: TextAlign.start,
+    //                                 style: FlutterFlowTheme.of(context).bodyText1,
+    //                               ),
+    //                             ),
+    //                           ),
+    //                           const Icon(
+    //                             Icons.check,
+    //                             color: Colors.black,
+    //                             size: 24,
+    //                           ),
+    //                         ],
+    //                       ),
+    //                     ),
+    //                   ),
+    //                 ),
+    //               ),
+    //             ],
+    //           ),
+    //           widget.file!=null? Row(
+    //             mainAxisSize: MainAxisSize.max,
+    //             children: [
+    //               Expanded(
+    //                 child: GestureDetector(
+    //                   onTap: () async {
+    //
+    //                   },
+    //                   child: Padding(
+    //                     padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
+    //                     child: Container(
+    //                       width: 50,
+    //                       height: 50,
+    //                       decoration: BoxDecoration(
+    //                         color: FlutterFlowTheme.of(context).secondaryBackground,
+    //                         borderRadius: BorderRadius.circular(10),
+    //                         border: Border.all(
+    //                           color: FlutterFlowTheme.of(context).secondaryColor,
+    //                           width: 1,
+    //                         ),
+    //                       ),
+    //                       child: Row(
+    //                         mainAxisSize: MainAxisSize.max,
+    //                         mainAxisAlignment: MainAxisAlignment.start,
+    //                         children: [
+    //                           Align(
+    //                             alignment: AlignmentDirectional(-0.6, 0),
+    //                             child: Padding(
+    //                               padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
+    //                               child: Text(
+    //                                 'Select Image',
+    //                                 textAlign: TextAlign.start,
+    //                                 style: FlutterFlowTheme.of(context).bodyText1,
+    //                               ),
+    //                             ),
+    //                           ),
+    //                           Icon(
+    //                             Icons.check,
+    //                             color: Colors.black,
+    //                             size: 24,
+    //                           ),
+    //                         ],
+    //                       ),
+    //                     ),
+    //                   ),
+    //                 ),
+    //               ),
+    //             ],
+    //           ):
+    //           Row(
+    //             mainAxisSize: MainAxisSize.max,
+    //             children: [
+    //               Expanded(
+    //                 child: GestureDetector(
+    //                   onTap: () async {
+    //                     var status = await Permission.storage.status;
+    //                     var list = List<String>.generate(20, (i) => (i + 1).toString());
+    //                     if (!status.isGranted) {
+    //                       await Permission.storage.request();
+    //                       await Permission.accessMediaLocation.request();
+    //                       if(sdk >= 30) {
+    //                         await Permission.manageExternalStorage.request();
+    //                       }
+    //                       return;
+    //                     }
+    //
+    //                     else
+    //                     {
+    //
+    //                       Navigator.pushReplacement(context,
+    //                           MaterialPageRoute(builder:
+    //                               (context) =>
+    //                               TakePictureScreen( title: list, name: 'arbaz',)
+    //                           ));
+    //                     }
+    //
+    //
+    //                   },
+    //                   child: Padding(
+    //                     padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
+    //                     child: Container(
+    //                       width: 50,
+    //                       height: 50,
+    //                       decoration: BoxDecoration(
+    //                         color: FlutterFlowTheme.of(context).secondaryBackground,
+    //                         borderRadius: BorderRadius.circular(10),
+    //                         border: Border.all(
+    //                           color: FlutterFlowTheme.of(context).secondaryColor,
+    //                           width: 1,
+    //                         ),
+    //                       ),
+    //                       child: Row(
+    //                         mainAxisSize: MainAxisSize.max,
+    //                         mainAxisAlignment: MainAxisAlignment.start,
+    //                         children: [
+    //                           Align(
+    //                             alignment: AlignmentDirectional(-0.6, 0),
+    //                             child: Padding(
+    //                               padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
+    //                               child: Text(
+    //                                 'Select Image',
+    //                                 textAlign: TextAlign.start,
+    //                                 style: FlutterFlowTheme.of(context).bodyText1,
+    //                               ),
+    //                             ),
+    //                           ),
+    //                           const Icon(
+    //                             Icons.navigate_next,
+    //                             color: Colors.black,
+    //                             size: 24,
+    //                           ),
+    //                         ],
+    //                       ),
+    //                     ),
+    //                   ),
+    //                 ),
+    //               ),
+    //             ],
+    //           ),
 
-                      },
-                      child: Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
-                        child: Container(
-                          width: 50,
-                          height: 50,
-                          decoration: BoxDecoration(
-                            color: FlutterFlowTheme.of(context).secondaryBackground,
-                            borderRadius: BorderRadius.circular(10),
-                            border: Border.all(
-                              color: FlutterFlowTheme.of(context).secondaryColor,
-                              width: 1,
-                            ),
-                          ),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Align(
-                                alignment: AlignmentDirectional(-0.6, 0),
-                                child: Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
-                                  child: Text(
-                                    'Select Image',
-                                    textAlign: TextAlign.start,
-                                    style: FlutterFlowTheme.of(context).bodyText1,
-                                  ),
-                                ),
-                              ),
-                              Icon(
-                                Icons.check,
-                                color: Colors.black,
-                                size: 24,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ):
-              Row(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Expanded(
-                    child: GestureDetector(
-                      onTap: () async {
-                        var status = await Permission.storage.status;
-                        var list = List<String>.generate(20, (i) => (i + 1).toString());
-                        if (!status.isGranted) {
-                          await Permission.storage.request();
-                          await Permission.accessMediaLocation.request();
-                          if(sdk >= 30) {
-                            await Permission.manageExternalStorage.request();
-                          }
-                          return;
-                        }
 
-                        else
-                        {
-
-                          Navigator.pushReplacement(context,
-                              MaterialPageRoute(builder:
-                                  (context) =>
-                                  TakePictureScreen( title: list, name: 'arbaz',)
-                              ));
-                        }
-
-
-                      },
-                      child: Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
-                        child: Container(
-                          width: 50,
-                          height: 50,
-                          decoration: BoxDecoration(
-                            color: FlutterFlowTheme.of(context).secondaryBackground,
-                            borderRadius: BorderRadius.circular(10),
-                            border: Border.all(
-                              color: FlutterFlowTheme.of(context).secondaryColor,
-                              width: 1,
-                            ),
-                          ),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Align(
-                                alignment: AlignmentDirectional(-0.6, 0),
-                                child: Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
-                                  child: Text(
-                                    'Select Image',
-                                    textAlign: TextAlign.start,
-                                    style: FlutterFlowTheme.of(context).bodyText1,
-                                  ),
-                                ),
-                              ),
-                              const Icon(
-                                Icons.navigate_next,
-                                color: Colors.black,
-                                size: 24,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
               widget.file!=null? Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
                 child: GridView.builder(
@@ -796,7 +932,7 @@ List singlepicfile=List.filled(20, "");
                                     borderRadius: BorderRadius.circular(10),
                                   ),
                                   child: Text(
-                                    'Front Side',
+                                    list[index],
                                     textAlign: TextAlign.center,
                                     style: FlutterFlowTheme.of(context).bodyText1,
                                   ),
@@ -848,12 +984,12 @@ List singlepicfile=List.filled(20, "");
                                             setState(() {
                                               Navigator.pop(context);
                                               singlepicfile.removeAt(index);
-                                            });}, child: Text("Delete")),
+                                            });}, child: const Text("Delete")),
                                           ElevatedButton(onPressed: (){
                                             setState(() {
                                               Navigator.pop(context);
                                               picimg(index,"S");
-                                            });}, child: Text("retake")),
+                                            });}, child: const Text("retake")),
                                         ],
                                       )
                                     ],
@@ -879,7 +1015,7 @@ List singlepicfile=List.filled(20, "");
                               fit: BoxFit.cover,
                                 ),
                           ):
-                          Image.asset("asset/virash.png"),
+                          Image.asset("asset/pi.png"),
                               Align(
                                 alignment: AlignmentDirectional(0.02, 0.95),
                                 child: Container(
@@ -890,7 +1026,7 @@ List singlepicfile=List.filled(20, "");
                                     borderRadius: BorderRadius.circular(10),
                                   ),
                                   child: Text(
-                                    'Front Side',
+                                    list[index],
                                     textAlign: TextAlign.center,
                                     style: FlutterFlowTheme.of(context).bodyText1,
                                   ),

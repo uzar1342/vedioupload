@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'dart:ui';
 import 'package:RYMSValuer/stepform.dart';
 import 'package:flutter/foundation.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'dart:io';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -137,7 +139,7 @@ class TakePictureScreenState extends State<TakePictureScreen> {
                       children: [
                         InkWell(
                           onTap: () {
-                            Navigator.pop(context);
+                            Get.off(()=>tab());
                           },
                           child: Container(
                             margin: const EdgeInsets.only(
@@ -162,7 +164,7 @@ class TakePictureScreenState extends State<TakePictureScreen> {
                         Text(
                           widget.len<len?widget.title[widget.len]:"Send",
                           style: const TextStyle(
-                              fontSize: 25.0,
+                              fontSize: 20.0,
                               fontWeight: FontWeight.bold,
                               color: Colors.black),
                         ),

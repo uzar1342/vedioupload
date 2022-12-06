@@ -24,68 +24,58 @@ class _IntroWidgetState extends State<IntroWidget> {
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
-      body: Column(
-        mainAxisSize: MainAxisSize.max,
-        children: [
-          Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(0, 60, 0, 0),
-            child: Row(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Image.asset(
-                  'asset/virash.png',
-                  width: 200,
-                  height: 100,
-                  fit: BoxFit.fitHeight,
-                ),
-              ],
-            ),
-          ),
-          Row(
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              Expanded(
-                child: Container(
-                  width: double.infinity,
-                  height: MediaQuery.of(context).size.height * 0.6,
-                  child: Stack(
-                    children: [
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 30),
-                        child: PageView(
-                          controller: pageViewController ??=
-                              PageController(initialPage: 0),
-                          scrollDirection: Axis.horizontal,
-                          children: [
-                            Container(
-                              width: 100,
-                              height: 100,
-                              decoration: BoxDecoration(),
-                              child: Column(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            0, 0, 0, 20),
-                                        child: Image.asset(
-                                          'asset/carsell.png',
-                                          width: 350,
-                                          height: 300,
-                                          fit: BoxFit.fitWidth,
+      body: SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+
+            Padding(
+              padding: const EdgeInsets.only(top: 18.0),
+              child: Row(
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  Container(
+                    constraints: BoxConstraints(
+                      maxHeight: 500,
+                      maxWidth: MediaQuery.of(context).size.width
+                    ),
+                    height: MediaQuery.of(context).size.height * 0.7,
+                    child: Stack(
+                      children: [
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 30),
+                          child: PageView(
+                            controller: pageViewController ??=
+                                PageController(initialPage: 0),
+                            scrollDirection: Axis.horizontal,
+                            children: [
+                              Container(
+                                width: 100,
+                                height: 100,
+                                decoration: BoxDecoration(),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        Padding(
+                                          padding: EdgeInsetsDirectional.fromSTEB(
+                                              0, 0, 0, 20),
+                                          child: Image.asset(
+                                            'asset/carsell.png',
+                                            width: 350,
+                                            height: 300,
+                                            fit: BoxFit.fitWidth,
+                                          ),
                                         ),
-                                      ),
-                                    ],
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        20, 0, 20, 8),
-                                    child: Row(
+                                      ],
+                                    ),
+                                    Row(
                                       mainAxisSize: MainAxisSize.max,
                                       children: [
                                         Expanded(
@@ -98,11 +88,7 @@ class _IntroWidgetState extends State<IntroWidget> {
                                         ),
                                       ],
                                     ),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        20, 0, 20, 8),
-                                    child: Row(
+                                    Row(
                                       mainAxisSize: MainAxisSize.max,
                                       children: [
                                         Expanded(
@@ -115,38 +101,34 @@ class _IntroWidgetState extends State<IntroWidget> {
                                         ),
                                       ],
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
-                            ),
-                            Container(
-                              width: 100,
-                              height: 100,
-                              decoration: BoxDecoration(),
-                              child: Column(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            0, 0, 0, 20),
-                                        child: Image.asset(
-                                          'asset/carsell.png',
-                                          width: 300,
-                                          height: 300,
-                                          fit: BoxFit.fitWidth,
+                              Container(
+                                width: 100,
+                                height: 100,
+                                decoration: BoxDecoration(),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        Padding(
+                                          padding: EdgeInsetsDirectional.fromSTEB(
+                                              0, 0, 0, 20),
+                                          child: Image.asset(
+                                            'asset/carsell.png',
+                                            width: 300,
+                                            height: 300,
+                                            fit: BoxFit.fitWidth,
+                                          ),
                                         ),
-                                      ),
-                                    ],
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        20, 0, 20, 8),
-                                    child: Row(
+                                      ],
+                                    ),
+                                    Row(
                                       mainAxisSize: MainAxisSize.max,
                                       children: [
                                         Expanded(
@@ -159,55 +141,51 @@ class _IntroWidgetState extends State<IntroWidget> {
                                         ),
                                       ],
                                     ),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        20, 0, 20, 8),
-                                    child: Row(
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          20, 0, 20, 8),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          Expanded(
+                                            child: Text(
+                                              'Buy and view all your favorite books you find in this library.',
+                                              textAlign: TextAlign.center,
+                                              style: FlutterFlowTheme.of(context)
+                                                  .subtitle2,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Container(
+                                width: 100,
+                                height: 100,
+                                decoration: BoxDecoration(),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Row(
                                       mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
-                                        Expanded(
-                                          child: Text(
-                                            'Buy and view all your favorite books you find in this library.',
-                                            textAlign: TextAlign.center,
-                                            style: FlutterFlowTheme.of(context)
-                                                .subtitle2,
+                                        Padding(
+                                          padding: EdgeInsetsDirectional.fromSTEB(
+                                              0, 30, 0, 30),
+                                          child: Image.asset(
+                                            'asset/carsell.png',
+                                            width: 300,
+                                            height: 250,
+                                            fit: BoxFit.fitWidth,
                                           ),
                                         ),
                                       ],
                                     ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Container(
-                              width: 100,
-                              height: 100,
-                              decoration: BoxDecoration(),
-                              child: Column(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            0, 30, 0, 30),
-                                        child: Image.asset(
-                                          'asset/carsell.png',
-                                          width: 300,
-                                          height: 250,
-                                          fit: BoxFit.fitWidth,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        20, 0, 20, 8),
-                                    child: Row(
+                                    Row(
                                       mainAxisSize: MainAxisSize.max,
                                       children: [
                                         Expanded(
@@ -220,11 +198,7 @@ class _IntroWidgetState extends State<IntroWidget> {
                                         ),
                                       ],
                                     ),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        20, 0, 20, 8),
-                                    child: Row(
+                                    Row(
                                       mainAxisSize: MainAxisSize.max,
                                       children: [
                                         Expanded(
@@ -237,91 +211,91 @@ class _IntroWidgetState extends State<IntroWidget> {
                                         ),
                                       ],
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
-                      ),
-                      Align(
-                        alignment: AlignmentDirectional(0, 1),
-                        child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 10),
-                          child: smooth_page_indicator.SmoothPageIndicator(
-                            controller: pageViewController ??=
-                                PageController(initialPage: 0),
-                            count: 3,
-                            axisDirection: Axis.horizontal,
-                            onDotClicked: (i) {
-                              pageViewController!.animateToPage(
-                                i,
-                                duration: Duration(milliseconds: 500),
-                                curve: Curves.ease,
-                              );
-                            },
-                            effect: smooth_page_indicator.ExpandingDotsEffect(
-                              expansionFactor: 2,
-                              spacing: 8,
-                              radius: 16,
-                              dotWidth: 16,
-                              dotHeight: 4,
-                              dotColor:
-                              FlutterFlowTheme.of(context).secondaryText,
-                              activeDotColor:
-                              FlutterFlowTheme.of(context).primaryText,
-                              paintStyle: PaintingStyle.fill,
+                        Align(
+                          alignment: AlignmentDirectional(0, 1),
+                          child: Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 10),
+                            child: smooth_page_indicator.SmoothPageIndicator(
+                              controller: pageViewController ??=
+                                  PageController(initialPage: 0),
+                              count: 3,
+                              axisDirection: Axis.horizontal,
+                              onDotClicked: (i) {
+                                pageViewController!.animateToPage(
+                                  i,
+                                  duration: Duration(milliseconds: 500),
+                                  curve: Curves.ease,
+                                );
+                              },
+                              effect: smooth_page_indicator.ExpandingDotsEffect(
+                                expansionFactor: 2,
+                                spacing: 8,
+                                radius: 16,
+                                dotWidth: 16,
+                                dotHeight: 4,
+                                dotColor:
+                                FlutterFlowTheme.of(context).secondaryText,
+                                activeDotColor:
+                                FlutterFlowTheme.of(context).primaryText,
+                                paintStyle: PaintingStyle.fill,
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
+                ],
               ),
-            ],
-          ),
-          Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
-            child: Row(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
-                  child: FFButtonWidget(
-                    onPressed: () async {
-                      await Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => LoginWidget(),
+            ),
+            Padding(
+              padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+              child: Row(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
+                    child: FFButtonWidget(
+                      onPressed: () async {
+                        await Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => LoginWidget(),
+                          ),
+                        );
+                      },
+                      text: 'Continue',
+                      options: FFButtonOptions(
+                        width: 200,
+                        height: 50,
+                        color: FlutterFlowTheme.of(context).primaryBackground,
+                        textStyle:
+                        FlutterFlowTheme.of(context).subtitle1.override(
+                          fontFamily: 'Lexend Deca',
+                          color: FlutterFlowTheme.of(context).primaryText,
+                          fontSize: 18,
+                          fontWeight: FontWeight.w500,
                         ),
-                      );
-                    },
-                    text: 'Continue',
-                    options: FFButtonOptions(
-                      width: 200,
-                      height: 50,
-                      color: FlutterFlowTheme.of(context).primaryBackground,
-                      textStyle:
-                      FlutterFlowTheme.of(context).subtitle1.override(
-                        fontFamily: 'Lexend Deca',
-                        color: FlutterFlowTheme.of(context).primaryText,
-                        fontSize: 18,
-                        fontWeight: FontWeight.w500,
-                      ),
-                      elevation: 2,
-                      borderSide: BorderSide(
-                        color: Colors.transparent,
-                        width: 1,
+                        elevation: 2,
+                        borderSide: BorderSide(
+                          color: Colors.transparent,
+                          width: 1,
+                        ),
                       ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

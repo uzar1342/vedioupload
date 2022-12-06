@@ -14,7 +14,7 @@ class tab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'TabView Tutorial GFG',
+      title: 'RYMSValuer',
       theme: ThemeData(
         primarySwatch: Colors.green,
       ),
@@ -78,7 +78,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
             },
           ),
           title: Text(
-            'Image and Vidio',
+            'Image and Video',
             style: FlutterFlowTheme.of(context).subtitle2,
           ),
           actions: [],

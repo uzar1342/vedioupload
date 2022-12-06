@@ -61,6 +61,8 @@ dependencies:
   light_compressor: ^1.2.2
   shared_preferences: ^2.0.11
   video_compress: ^3.1.0
+  connectivity_plus: ^2.3.6
+  share_plus: ^6.3.0
   cross_file_image: ^0.0.2
   image_picker: ^0.8.4+1
   multi_image_picker: ^4.7.14
